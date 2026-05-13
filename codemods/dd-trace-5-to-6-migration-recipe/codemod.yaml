@@ -15,6 +15,6 @@ keywords: ["datadog", "dd-trace", "v5-to-v6"]
 
 registry:
   access: "public"
-  visibility: "public"
+  visibility: "private"
 
 capabilities: []
