@@ -6,6 +6,16 @@ params:
   schema:
     run_ai_review:
       name: "Run AI review"
+      description: "Enable report-only AI review steps in nested codemods"
+      type: string
+      default: "false"
+    run_ai_config_step:
+      name: "Run AI config step"
+      description: "Enable AI config-file steps in nested codemods"
+      type: string
+      default: "false"
+    run_final_ai_review:
+      name: "Run final AI review"
       description: "Run a final report-only AI review for unresolved dd-trace 5 to 6 migration blockers"
       type: string
       default: "false"
@@ -16,80 +26,39 @@ nodes:
     type: automatic
     steps:
       - name: "Rewrite Span.addLink positional overload"
-        js-ast-grep:
-          js_file: ../add-link-object-argument/scripts/codemod.ts
-          language: "tsx"
-          base_path: "."
-          include: &source_files
-            - "**/*.{js,jsx,ts,tsx,mjs,cjs}"
-          exclude: &source_excludes
-            - "**/node_modules/**"
-            - "**/dist/**"
-            - "**/build/**"
-            - "**/.next/**"
-            - "**/coverage/**"
-            - "**/.git/**"
-            - "**/tests/**/expected.ts"
-            - "**/tests/**/expected.tsx"
+        codemod:
+          source: "dd-trace-5-to-6-add-link-object-argument"
 
       - name: "Rename Datadog plugin allow/block list options"
-        js-ast-grep:
-          js_file: ../rename-plugin-list-options/scripts/codemod.ts
-          language: "tsx"
-          base_path: "."
-          include: *source_files
-          exclude: *source_excludes
+        codemod:
+          source: "dd-trace-5-to-6-rename-plugin-list-options"
 
       - name: "Move experimental.iast options"
-        js-ast-grep:
-          js_file: ../move-experimental-iast-options/scripts/codemod.ts
-          language: "tsx"
-          base_path: "."
-          include: *source_files
-          exclude: *source_excludes
+        codemod:
+          source: "dd-trace-5-to-6-move-experimental-iast-options"
 
       - name: "Move experimental.appsec options"
-        js-ast-grep:
-          js_file: ../move-experimental-appsec-options/scripts/codemod.ts
-          language: "tsx"
-          base_path: "."
-          include: *source_files
-          exclude: *source_excludes
+        codemod:
+          source: "dd-trace-5-to-6-move-experimental-appsec-options"
 
       - name: "Flatten ingestion options"
-        js-ast-grep:
-          js_file: ../flatten-ingestion-options/scripts/codemod.ts
-          language: "tsx"
-          base_path: "."
-          include: *source_files
-          exclude: *source_excludes
+        codemod:
+          source: "dd-trace-5-to-6-flatten-ingestion-options"
 
       - name: "Rename profiling env vars in JS/TS source"
-        js-ast-grep:
-          js_file: ../rename-profiling-env-vars/scripts/codemod.ts
-          language: "tsx"
-          base_path: "."
-          include: *source_files
-          exclude: *source_excludes
+        codemod:
+          source: "dd-trace-5-to-6-rename-profiling-env-vars"
 
       - name: "Rename runtime id env var in JS/TS source"
-        js-ast-grep:
-          js_file: ../rename-runtime-id-env-var/scripts/codemod.ts
-          language: "tsx"
-          base_path: "."
-          include: *source_files
-          exclude: *source_excludes
+        codemod:
+          source: "dd-trace-5-to-6-rename-runtime-id-env-var"
 
       - name: "Rename b3 single header propagation style in JS/TS source"
-        js-ast-grep:
-          js_file: ../rename-b3-single-header-propagation-style/scripts/codemod.ts
-          language: "tsx"
-          base_path: "."
-          include: *source_files
-          exclude: *source_excludes
+        codemod:
+          source: "dd-trace-5-to-6-rename-b3-style"
 
       - name: "AI report unresolved dd-trace migration blockers"
-        if: params.run_ai_review == "true"
+        if: params.run_final_ai_review == "true"
         ai:
           prompt: |
             You are reviewing a repository after the deterministic dd-trace-js 5.0 to 6.0 codemods ran.

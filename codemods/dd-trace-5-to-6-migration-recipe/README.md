@@ -14,7 +14,7 @@ Individual codemod packages remain atomic.
 5. `dd-trace-5-to-6-flatten-ingestion-options`
 6. `dd-trace-5-to-6-rename-profiling-env-vars`
 7. `dd-trace-5-to-6-rename-runtime-id-env-var`
-8. `dd-trace-5-to-6-rename-b3-single-header-propagation-style`
+8. `dd-trace-5-to-6-rename-b3-style`
 
 ## AI Review
 

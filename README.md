@@ -166,23 +166,23 @@ LLM_API_KEY=... npx codemod dd-trace-5-to-6-rename-runtime-id-env-var \
   --param run_ai_config_step=true
 ```
 
-#### `dd-trace-5-to-6-rename-b3-single-header-propagation-style`
+#### `dd-trace-5-to-6-rename-b3-style`
 
 Renames exact propagation style values from `"b3 single header"` to `"b3"` in
 JS/TS Datadog configuration source.
 
 ```bash
-npx codemod dd-trace-5-to-6-rename-b3-single-header-propagation-style --target <path>
+npx codemod dd-trace-5-to-6-rename-b3-style --target <path>
 ```
 
 See
-[dd-trace-5-to-6-rename-b3-single-header-propagation-style](https://app.codemod.com/registry/dd-trace-5-to-6-rename-b3-single-header-propagation-style).
+[dd-trace-5-to-6-rename-b3-style](https://app.codemod.com/registry/dd-trace-5-to-6-rename-b3-style).
 
 Optional AI config-file step for exact active `DD_TRACE_PROPAGATION_STYLE`
 occurrences in `.env`, Dockerfile, YAML, shell, CI, and deployment files:
 
 ```bash
-LLM_API_KEY=... npx codemod dd-trace-5-to-6-rename-b3-single-header-propagation-style \
+LLM_API_KEY=... npx codemod dd-trace-5-to-6-rename-b3-style \
   --target <path> \
   --param run_ai_config_step=true
 ```
@@ -200,7 +200,7 @@ LLM_API_KEY=... npx codemod dd-trace-5-to-6-rename-b3-single-header-propagation-
 | `ingestion` option removed | `dd-trace-5-to-6-flatten-ingestion-options` |
 | Profiling experimental env aliases removed | `dd-trace-5-to-6-rename-profiling-env-vars` |
 | `DD_TRACE_EXPERIMENTAL_RUNTIME_ID_ENABLED` removed | `dd-trace-5-to-6-rename-runtime-id-env-var` |
-| `"b3 single header"` renamed to `"b3"` | `dd-trace-5-to-6-rename-b3-single-header-propagation-style` |
+| `"b3 single header"` renamed to `"b3"` | `dd-trace-5-to-6-rename-b3-style` |
 | `experimental.b3` removed | Issue drafted; deterministic rewrite deferred |
 | `DD_TRACE_STARTUP_LOGS` defaults to `true` | Manual operational decision |
 

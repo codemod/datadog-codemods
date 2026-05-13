@@ -1,4 +1,4 @@
-# dd-trace-5-to-6-rename-b3-single-header-propagation-style
+# dd-trace-5-to-6-rename-b3-style
 
 Renames the legacy propagation style value `"b3 single header"` to `"b3"` in
 JS/TS Datadog configuration source.
