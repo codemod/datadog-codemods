@@ -5,6 +5,8 @@ import { getImport } from "@jssg/utils/javascript/imports";
 
 const DD_TRACE_MODULE = "dd-trace";
 
+type SpanBindings = Map<string, Set<number>>;
+
 function metricFile(filename: string): string {
   const cwd = process.cwd() + "/";
   return filename.startsWith(cwd) ? filename.slice(cwd.length) : filename;
@@ -41,6 +43,8 @@ function findDdTraceBindings(rootNode: SgNode<TSX, "program">): Set<string> {
   const bindings = new Set<string>();
   const defaultBinding = getImport(rootNode, { type: "default", from: DD_TRACE_MODULE });
   if (defaultBinding) bindings.add(defaultBinding.alias);
+  const namedTracerBinding = getImport(rootNode, { type: "named", name: "tracer", from: DD_TRACE_MODULE });
+  if (namedTracerBinding) bindings.add(namedTracerBinding.alias);
 
   for (const importNode of rootNode.findAll({ rule: { kind: "import_statement" } })) {
     const source = importNode.field("source") ?? importNode.find({ rule: { kind: "string" } });
@@ -58,12 +62,48 @@ function findDdTraceSpanTypeNames(rootNode: SgNode<TSX, "program">): Set<string>
   const names = new Set<string>();
   const spanImport = getImport(rootNode, { type: "named", name: "Span", from: DD_TRACE_MODULE });
   if (spanImport) names.add(spanImport.alias);
+
+  for (const importNode of rootNode.findAll({ rule: { kind: "import_statement" } })) {
+    const source = importNode.field("source") ?? importNode.find({ rule: { kind: "string" } });
+    if (stringLiteralValue(source) !== DD_TRACE_MODULE) continue;
+
+    for (const specifier of importNode.findAll({ rule: { kind: "import_specifier" } })) {
+      const identifiers = specifier.children().filter((child) =>
+        child.isNamed() && (child.kind() === "identifier" || child.kind() === "type_identifier")
+      );
+      if (identifiers[0]?.text() !== "Span") continue;
+      names.add(identifiers.at(-1)?.text() ?? "Span");
+    }
+  }
   return names;
+}
+
+function closestAncestor(node: SgNode<TSX>, kind: string): SgNode<TSX> | null {
+  if (node.kind() === kind) return node;
+  return node.ancestors().find((ancestor) => ancestor.kind() === kind) ?? null;
+}
+
+function definitionComesFromDdTrace(node: SgNode<TSX>): boolean {
+  const importStatement = closestAncestor(node, "import_statement");
+  if (importStatement) {
+    const source = importStatement.field("source") ?? importStatement.find({ rule: { kind: "string" } });
+    return stringLiteralValue(source) === DD_TRACE_MODULE;
+  }
+
+  const declarator = closestAncestor(node, "variable_declarator");
+  const value = declarator?.field("value");
+  return Boolean(value && value.kind() === "call_expression" && isRequireDdTraceCall(value));
+}
+
+function isDdTraceBindingReference(node: SgNode<TSX>, bindings: Set<string>): boolean {
+  if (node.kind() !== "identifier" || !bindings.has(node.text())) return false;
+  const definition = node.definition();
+  return Boolean(definition?.node && definitionComesFromDdTrace(definition.node));
 }
 
 function isDdTraceObject(node: SgNode<TSX> | null | undefined, bindings: Set<string>): boolean {
   if (!node) return false;
-  if (node.kind() === "identifier") return bindings.has(node.text());
+  if (node.kind() === "identifier") return isDdTraceBindingReference(node, bindings);
   return node.kind() === "call_expression" && isRequireDdTraceCall(node);
 }
 
@@ -91,14 +131,37 @@ function isDdTraceSpanFactory(node: SgNode<TSX> | null | undefined, bindings: Se
   return isDdTraceMemberCall(scopeCall, "scope", bindings);
 }
 
-function findDdTraceSpanVariables(rootNode: SgNode<TSX, "program">, bindings: Set<string>): Set<string> {
-  const variables = new Set<string>();
+function addSpanBinding(bindings: SpanBindings, name: SgNode<TSX>): void {
+  const current = bindings.get(name.text()) ?? new Set<number>();
+  current.add(name.id());
+  const parent = name.parent();
+  if (parent) current.add(parent.id());
+  bindings.set(name.text(), current);
+}
+
+function isSpanBindingReference(node: SgNode<TSX>, bindings: SpanBindings): boolean {
+  if (node.kind() !== "identifier") return false;
+  const definitions = bindings.get(node.text());
+  if (!definitions) return false;
+
+  const definition = node.definition();
+  return Boolean(definition?.node && definitions.has(definition.node.id()));
+}
+
+function isDdTraceSpanTypeReference(typeName: SgNode<TSX>, spanTypeNames: Set<string>): boolean {
+  if (!spanTypeNames.has(typeName.text())) return false;
+  const definition = typeName.definition();
+  return Boolean(definition?.node && definitionComesFromDdTrace(definition.node));
+}
+
+function findDdTraceSpanVariables(rootNode: SgNode<TSX, "program">, bindings: Set<string>): SpanBindings {
+  const variables: SpanBindings = new Map();
 
   for (const declarator of rootNode.findAll({ rule: { kind: "variable_declarator" } })) {
     const name = declarator.field("name");
     const value = declarator.field("value");
     if (name?.kind() === "identifier" && isDdTraceSpanFactory(value, bindings)) {
-      variables.add(name.text());
+      addSpanBinding(variables, name);
     }
   }
 
@@ -107,8 +170,8 @@ function findDdTraceSpanVariables(rootNode: SgNode<TSX, "program">, bindings: Se
     for (const parameter of rootNode.findAll({ rule: { kind: "required_parameter" } })) {
       const name = parameter.children().find((child) => child.kind() === "identifier");
       const typeName = parameter.find({ rule: { kind: "type_identifier" } });
-      if (name && typeName && spanTypeNames.has(typeName.text())) {
-        variables.add(name.text());
+      if (name && typeName && isDdTraceSpanTypeReference(typeName, spanTypeNames)) {
+        addSpanBinding(variables, name);
       }
     }
   }
@@ -124,11 +187,11 @@ function isAddLinkCall(call: SgNode<TSX>): boolean {
   return property?.text() === "addLink";
 }
 
-function isEligibleAddLinkReceiver(call: SgNode<TSX>, spanVariables: Set<string>, bindings: Set<string>): boolean {
+function isEligibleAddLinkReceiver(call: SgNode<TSX>, spanVariables: SpanBindings, bindings: Set<string>): boolean {
   const fn = call.field("function");
   const receiver = fn?.field("object");
   if (!receiver) return false;
-  if (receiver.kind() === "identifier") return spanVariables.has(receiver.text());
+  if (receiver.kind() === "identifier") return isSpanBindingReference(receiver, spanVariables);
   return isDdTraceSpanFactory(receiver, bindings);
 }
 

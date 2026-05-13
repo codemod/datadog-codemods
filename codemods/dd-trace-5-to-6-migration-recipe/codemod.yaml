@@ -1,7 +1,7 @@
 schema_version: "1.0"
 
 name: "dd-trace-5-to-6-migration-recipe"
-version: "0.1.2"
+version: "0.1.3"
 description: "Run the dd-trace-js 5.0 to 6.0 migration codemods in sequence"
 author: "Datadog SDK Team"
 license: "MIT"
@@ -9,12 +9,12 @@ workflow: "workflow.yaml"
 repository: "https://github.com/codemod/datadog-codemods/tree/main/codemods/dd-trace-5-to-6-migration-recipe"
 
 targets:
-  languages: ["javascript", "typescript", "tsx"]
+  languages: ["javascript", "jsx", "typescript", "tsx"]
 
 keywords: ["datadog", "dd-trace", "v5-to-v6"]
 
 registry:
   access: "public"
-  visibility: "private"
+  visibility: "public"
 
 capabilities: []

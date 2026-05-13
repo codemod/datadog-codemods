@@ -1,7 +1,7 @@
 schema_version: "1.0"
 
 name: "dd-trace-5-to-6-rename-runtime-id-env-var"
-version: "0.1.1"
+version: "0.1.2"
 description: "Rename DD_TRACE_EXPERIMENTAL_RUNTIME_ID_ENABLED in JS/TS source"
 author: "Datadog SDK Team"
 license: "MIT"
@@ -9,12 +9,12 @@ workflow: "workflow.yaml"
 repository: "https://github.com/codemod/datadog-codemods/tree/main/codemods/rename-runtime-id-env-var"
 
 targets:
-  languages: ["javascript", "typescript", "tsx"]
+  languages: ["javascript", "jsx", "typescript", "tsx"]
 
 keywords: ["datadog", "dd-trace", "v5-to-v6"]
 
 registry:
   access: "public"
-  visibility: "private"
+  visibility: "public"
 
 capabilities: []

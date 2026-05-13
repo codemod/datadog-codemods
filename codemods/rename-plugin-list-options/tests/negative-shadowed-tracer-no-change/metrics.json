@@ -1,0 +1,12 @@
+{
+  "rename-plugin-list-options": [
+    {
+      "cardinality": {
+        "file": "tests/negative-shadowed-tracer-no-change/input.tsx",
+        "option": "whitelist",
+        "result": "skipped-context"
+      },
+      "count": 1
+    }
+  ]
+}

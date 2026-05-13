@@ -1,0 +1,20 @@
+{
+  "rename-profiling-env-vars": [
+    {
+      "cardinality": {
+        "env": "DD_PROFILING_EXPERIMENTAL_CPU_ENABLED",
+        "file": "tests/negative-unrelated-env-map-no-change/input.tsx",
+        "result": "skipped-context"
+      },
+      "count": 1
+    },
+    {
+      "cardinality": {
+        "env": "DD_PROFILING_EXPERIMENTAL_TIMELINE_ENABLED",
+        "file": "tests/negative-unrelated-env-map-no-change/input.tsx",
+        "result": "skipped-context"
+      },
+      "count": 1
+    }
+  ]
+}

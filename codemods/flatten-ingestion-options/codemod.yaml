@@ -1,7 +1,7 @@
 schema_version: "1.0"
 
 name: "dd-trace-5-to-6-flatten-ingestion-options"
-version: "0.1.0"
+version: "0.1.1"
 description: "Flatten dd-trace ingestion.sampleRate/rateLimit options to top-level TracerOptions"
 author: "Datadog SDK Team"
 license: "MIT"
@@ -9,12 +9,12 @@ workflow: "workflow.yaml"
 repository: "https://github.com/codemod/datadog-codemods/tree/main/codemods/flatten-ingestion-options"
 
 targets:
-  languages: ["javascript", "typescript", "tsx"]
+  languages: ["javascript", "jsx", "typescript", "tsx"]
 
 keywords: ["datadog", "dd-trace", "v5-to-v6"]
 
 registry:
   access: "public"
-  visibility: "private"
+  visibility: "public"
 
 capabilities: []

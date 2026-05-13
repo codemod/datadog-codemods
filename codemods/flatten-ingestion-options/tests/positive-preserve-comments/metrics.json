@@ -1,0 +1,11 @@
+{
+  "flatten-ingestion-options": [
+    {
+      "cardinality": {
+        "file": "tests/positive-preserve-comments/input.tsx",
+        "result": "flattened"
+      },
+      "count": 1
+    }
+  ]
+}

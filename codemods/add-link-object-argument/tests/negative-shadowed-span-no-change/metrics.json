@@ -1,0 +1,11 @@
+{
+  "add-link-object-argument": [
+    {
+      "cardinality": {
+        "file": "tests/negative-shadowed-span-no-change/input.tsx",
+        "result": "skipped-context"
+      },
+      "count": 1
+    }
+  ]
+}

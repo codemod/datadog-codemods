@@ -11,6 +11,7 @@ nodes:
         js-ast-grep:
           js_file: scripts/codemod.ts
           language: "tsx"
+          semantic_analysis: file
           base_path: "."
           include:
             - "**/*.{js,jsx,ts,tsx,mjs,cjs}"

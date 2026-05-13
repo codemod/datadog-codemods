@@ -1,0 +1,11 @@
+{
+  "rename-runtime-id-env-var": [
+    {
+      "cardinality": {
+        "file": "tests/negative-unrelated-env-map-no-change/input.tsx",
+        "result": "skipped-context"
+      },
+      "count": 1
+    }
+  ]
+}

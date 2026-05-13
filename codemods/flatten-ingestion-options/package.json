@@ -1,10 +1,10 @@
 {
   "name": "dd-trace-5-to-6-flatten-ingestion-options",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Flatten dd-trace ingestion.sampleRate/rateLimit options to top-level TracerOptions",
   "type": "module",
   "scripts": {
-    "test": "pnpm dlx codemod@latest jssg test -l tsx ./scripts/codemod.ts",
+    "test": "pnpm dlx codemod@latest jssg test -l tsx --semantic-workspace ./scripts/codemod.ts",
     "check-types": "tsc --noEmit"
   },
   "devDependencies": {

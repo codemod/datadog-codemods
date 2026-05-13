@@ -59,6 +59,8 @@ function findDdTraceBindings(rootNode: SgNode<TSX, "program">): Set<string> {
   const bindings = new Set<string>();
   const defaultBinding = getImport(rootNode, { type: "default", from: DD_TRACE_MODULE });
   if (defaultBinding) bindings.add(defaultBinding.alias);
+  const namedTracerBinding = getImport(rootNode, { type: "named", name: "tracer", from: DD_TRACE_MODULE });
+  if (namedTracerBinding) bindings.add(namedTracerBinding.alias);
 
   for (const importNode of rootNode.findAll({ rule: { kind: "import_statement" } })) {
     const source = importNode.field("source") ?? importNode.find({ rule: { kind: "string" } });
@@ -72,9 +74,32 @@ function findDdTraceBindings(rootNode: SgNode<TSX, "program">): Set<string> {
   return bindings;
 }
 
+function closestAncestor(node: SgNode<TSX>, kind: string): SgNode<TSX> | null {
+  if (node.kind() === kind) return node;
+  return node.ancestors().find((ancestor) => ancestor.kind() === kind) ?? null;
+}
+
+function definitionComesFromDdTrace(node: SgNode<TSX>): boolean {
+  const importStatement = closestAncestor(node, "import_statement");
+  if (importStatement) {
+    const source = importStatement.field("source") ?? importStatement.find({ rule: { kind: "string" } });
+    return literalText(source ?? undefined) === DD_TRACE_MODULE;
+  }
+
+  const declarator = closestAncestor(node, "variable_declarator");
+  const value = declarator?.field("value");
+  return Boolean(value && value.kind() === "call_expression" && isRequireDdTraceCall(value));
+}
+
+function isDdTraceBindingReference(node: SgNode<TSX>, bindings: Set<string>): boolean {
+  if (node.kind() !== "identifier" || !bindings.has(node.text())) return false;
+  const definition = node.definition();
+  return Boolean(definition?.node && definitionComesFromDdTrace(definition.node));
+}
+
 function isDdTraceObject(node: SgNode<TSX> | null | undefined, bindings: Set<string>): boolean {
   if (!node) return false;
-  if (node.kind() === "identifier") return bindings.has(node.text());
+  if (node.kind() === "identifier") return isDdTraceBindingReference(node, bindings);
   return node.kind() === "call_expression" && isRequireDdTraceCall(node);
 }
 

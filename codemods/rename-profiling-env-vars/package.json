@@ -1,6 +1,6 @@
 {
   "name": "dd-trace-5-to-6-rename-profiling-env-vars",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Rename Datadog profiling experimental env vars in JS/TS source",
   "type": "module",
   "scripts": {

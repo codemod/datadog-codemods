@@ -1,7 +1,7 @@
 schema_version: "1.0"
 
 name: "dd-trace-5-to-6-rename-b3-style"
-version: "0.1.1"
+version: "0.1.2"
 description: "Rename b3 single header propagation style values to b3 in JS/TS source"
 author: "Datadog SDK Team"
 license: "MIT"
@@ -9,12 +9,12 @@ workflow: "workflow.yaml"
 repository: "https://github.com/codemod/datadog-codemods/tree/main/codemods/rename-b3-single-header-propagation-style"
 
 targets:
-  languages: ["javascript", "typescript", "tsx"]
+  languages: ["javascript", "jsx", "typescript", "tsx"]
 
 keywords: ["datadog", "dd-trace", "v5-to-v6"]
 
 registry:
   access: "public"
-  visibility: "private"
+  visibility: "public"
 
 capabilities: []
