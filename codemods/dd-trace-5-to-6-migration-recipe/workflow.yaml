@@ -7,18 +7,18 @@ params:
     run_ai_review:
       name: "Run AI review"
       description: "Enable report-only AI review steps in nested codemods"
-      type: string
-      default: "false"
+      type: boolean
+      default: false
     run_ai_config_step:
       name: "Run AI config step"
       description: "Enable AI config-file steps in nested codemods"
-      type: string
-      default: "false"
+      type: boolean
+      default: false
     run_final_ai_review:
       name: "Run final AI review"
       description: "Run a final report-only AI review for unresolved dd-trace 5 to 6 migration blockers"
-      type: string
-      default: "false"
+      type: boolean
+      default: false
 
 nodes:
   - id: dd-trace-5-to-6-migration
@@ -58,7 +58,7 @@ nodes:
           source: "dd-trace-5-to-6-rename-b3-style"
 
       - name: "AI report unresolved dd-trace migration blockers"
-        if: params.run_final_ai_review == "true"
+        if: params.run_final_ai_review == true
         ai:
           prompt: |
             You are reviewing a repository after the deterministic dd-trace-js 5.0 to 6.0 codemods ran.

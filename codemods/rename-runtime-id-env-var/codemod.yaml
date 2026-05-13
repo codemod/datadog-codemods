@@ -1,7 +1,7 @@
 schema_version: "1.0"
 
 name: "dd-trace-5-to-6-rename-runtime-id-env-var"
-version: "0.1.0"
+version: "0.1.1"
 description: "Rename DD_TRACE_EXPERIMENTAL_RUNTIME_ID_ENABLED in JS/TS source"
 author: "Datadog SDK Team"
 license: "MIT"

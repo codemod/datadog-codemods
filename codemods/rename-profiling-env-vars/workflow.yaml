@@ -7,8 +7,8 @@ params:
     run_ai_config_step:
       name: "Run AI config step"
       description: "Update exact profiling env var names in non-JS config files"
-      type: string
-      default: "false"
+      type: boolean
+      default: false
 
 nodes:
   - id: apply-transform
@@ -33,7 +33,7 @@ nodes:
             - "**/tests/**/expected.tsx"
 
       - name: "AI update profiling env vars in config files"
-        if: params.run_ai_config_step == "true"
+        if: params.run_ai_config_step == true
         ai:
           prompt: |
             You are completing the dd-trace-js 5.0 to 6.0 profiling env var migration after the deterministic JS/TS AST step.

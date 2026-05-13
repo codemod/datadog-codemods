@@ -40,6 +40,15 @@ final report-only AI review for unresolved migration blockers.
 npx codemod dd-trace-5-to-6-migration-recipe --target <path>
 ```
 
+Optional recipe parameters:
+
+- `--param run_ai_review=true` enables report-only AI review steps in nested
+  IAST and AppSec codemods.
+- `--param run_ai_config_step=true` enables AI config-file steps in nested env
+  var and propagation-style codemods.
+- `--param run_final_ai_review=true` enables the final report-only recipe
+  review.
+
 See
 [dd-trace-5-to-6-migration-recipe](https://app.codemod.com/registry/dd-trace-5-to-6-migration-recipe).
 
@@ -82,7 +91,7 @@ See
 Optional report-only AI review for skipped security controls:
 
 ```bash
-LLM_API_KEY=... npx codemod dd-trace-5-to-6-move-experimental-iast-options \
+npx codemod dd-trace-5-to-6-move-experimental-iast-options \
   --target <path> \
   --param run_ai_review=true
 ```
@@ -103,7 +112,7 @@ See
 Optional report-only AI review for skipped AppSec Remote Configuration options:
 
 ```bash
-LLM_API_KEY=... npx codemod dd-trace-5-to-6-move-experimental-appsec-options \
+npx codemod dd-trace-5-to-6-move-experimental-appsec-options \
   --target <path> \
   --param run_ai_review=true
 ```
@@ -140,7 +149,7 @@ Optional AI config-file step for exact active occurrences in `.env`,
 Dockerfile, YAML, shell, CI, and deployment files:
 
 ```bash
-LLM_API_KEY=... npx codemod dd-trace-5-to-6-rename-profiling-env-vars \
+npx codemod dd-trace-5-to-6-rename-profiling-env-vars \
   --target <path> \
   --param run_ai_config_step=true
 ```
@@ -161,7 +170,7 @@ Optional AI config-file step for exact active occurrences in `.env`,
 Dockerfile, YAML, shell, CI, and deployment files:
 
 ```bash
-LLM_API_KEY=... npx codemod dd-trace-5-to-6-rename-runtime-id-env-var \
+npx codemod dd-trace-5-to-6-rename-runtime-id-env-var \
   --target <path> \
   --param run_ai_config_step=true
 ```
@@ -182,7 +191,7 @@ Optional AI config-file step for exact active `DD_TRACE_PROPAGATION_STYLE`
 occurrences in `.env`, Dockerfile, YAML, shell, CI, and deployment files:
 
 ```bash
-LLM_API_KEY=... npx codemod dd-trace-5-to-6-rename-b3-style \
+npx codemod dd-trace-5-to-6-rename-b3-style \
   --target <path> \
   --param run_ai_config_step=true
 ```
@@ -214,6 +223,9 @@ LLM_API_KEY=... npx codemod dd-trace-5-to-6-rename-b3-style \
 - Comments, arbitrary prose, and unrelated string literals are left unchanged.
 - AI steps are disabled by default and are limited to either report-only review
   or exact active config-file occurrences described in the workflow prompt.
+- AI workflow steps do not require a direct `LLM_API_KEY` for local testing.
+  In raw CLI runs without a provider key, Codemod emits `[AI INSTRUCTIONS]` for
+  the parent agent or harness to handle.
 
 ## Development
 
