@@ -1,0 +1,20 @@
+schema_version: "1.0"
+
+name: "dd-trace-5-to-6-move-experimental-appsec-options"
+version: "0.1.0"
+description: "Move experimental.appsec options to top-level appsec/apmTracingEnabled when safe"
+author: "Datadog SDK Team"
+license: "MIT"
+workflow: "workflow.yaml"
+repository: "https://github.com/codemod/datadog-codemods/tree/main/codemods/move-experimental-appsec-options"
+
+targets:
+  languages: ["javascript", "typescript", "tsx"]
+
+keywords: ["datadog", "dd-trace", "v5-to-v6"]
+
+registry:
+  access: "public"
+  visibility: "public"
+
+capabilities: []

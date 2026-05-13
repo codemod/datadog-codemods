@@ -1,0 +1,20 @@
+{
+  "rename-plugin-list-options": [
+    {
+      "cardinality": {
+        "file": "tests/negative-no-dd-trace/input.tsx",
+        "option": "blacklist",
+        "result": "skipped-context"
+      },
+      "count": 1
+    },
+    {
+      "cardinality": {
+        "file": "tests/negative-no-dd-trace/input.tsx",
+        "option": "whitelist",
+        "result": "skipped-context"
+      },
+      "count": 1
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "dd-trace-5-to-6-migration-recipe",
+  "version": "0.1.0",
+  "description": "Run the dd-trace-js 5.0 to 6.0 migration codemods in sequence",
+  "type": "module",
+  "scripts": {
+    "test": "pnpm dlx codemod@latest workflow validate -w workflow.yaml",
+    "check-types": "node --check ./scripts/metadata-tests.mjs"
+  },
+  "private": true,
+  "license": "MIT",
+  "packageManager": "pnpm@9.14.2"
+}

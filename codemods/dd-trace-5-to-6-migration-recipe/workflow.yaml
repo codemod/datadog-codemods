@@ -1,0 +1,107 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/codemod/codemod/refs/heads/main/schemas/workflow.json
+
+version: "1"
+
+params:
+  schema:
+    run_ai_review:
+      name: "Run AI review"
+      description: "Run a final report-only AI review for unresolved dd-trace 5 to 6 migration blockers"
+      type: string
+      default: "false"
+
+nodes:
+  - id: dd-trace-5-to-6-migration
+    name: dd-trace 5 to 6 Migration
+    type: automatic
+    steps:
+      - name: "Rewrite Span.addLink positional overload"
+        js-ast-grep:
+          js_file: ../add-link-object-argument/scripts/codemod.ts
+          language: "tsx"
+          base_path: "."
+          include: &source_files
+            - "**/*.{js,jsx,ts,tsx,mjs,cjs}"
+          exclude: &source_excludes
+            - "**/node_modules/**"
+            - "**/dist/**"
+            - "**/build/**"
+            - "**/.next/**"
+            - "**/coverage/**"
+            - "**/.git/**"
+            - "**/tests/**/expected.ts"
+            - "**/tests/**/expected.tsx"
+
+      - name: "Rename Datadog plugin allow/block list options"
+        js-ast-grep:
+          js_file: ../rename-plugin-list-options/scripts/codemod.ts
+          language: "tsx"
+          base_path: "."
+          include: *source_files
+          exclude: *source_excludes
+
+      - name: "Move experimental.iast options"
+        js-ast-grep:
+          js_file: ../move-experimental-iast-options/scripts/codemod.ts
+          language: "tsx"
+          base_path: "."
+          include: *source_files
+          exclude: *source_excludes
+
+      - name: "Move experimental.appsec options"
+        js-ast-grep:
+          js_file: ../move-experimental-appsec-options/scripts/codemod.ts
+          language: "tsx"
+          base_path: "."
+          include: *source_files
+          exclude: *source_excludes
+
+      - name: "Flatten ingestion options"
+        js-ast-grep:
+          js_file: ../flatten-ingestion-options/scripts/codemod.ts
+          language: "tsx"
+          base_path: "."
+          include: *source_files
+          exclude: *source_excludes
+
+      - name: "Rename profiling env vars in JS/TS source"
+        js-ast-grep:
+          js_file: ../rename-profiling-env-vars/scripts/codemod.ts
+          language: "tsx"
+          base_path: "."
+          include: *source_files
+          exclude: *source_excludes
+
+      - name: "Rename runtime id env var in JS/TS source"
+        js-ast-grep:
+          js_file: ../rename-runtime-id-env-var/scripts/codemod.ts
+          language: "tsx"
+          base_path: "."
+          include: *source_files
+          exclude: *source_excludes
+
+      - name: "Rename b3 single header propagation style in JS/TS source"
+        js-ast-grep:
+          js_file: ../rename-b3-single-header-propagation-style/scripts/codemod.ts
+          language: "tsx"
+          base_path: "."
+          include: *source_files
+          exclude: *source_excludes
+
+      - name: "AI report unresolved dd-trace migration blockers"
+        if: params.run_ai_review == "true"
+        ai:
+          prompt: |
+            You are reviewing a repository after the deterministic dd-trace-js 5.0 to 6.0 codemods ran.
+            Report only. Do not edit files, do not rewrite source, and do not add comments.
+
+            Find unresolved migration blockers:
+            - Remaining experimental.b3 programmatic config and DD_TRACE_EXPERIMENTAL_B3_ENABLED usage. Recommend DD_TRACE_PROPAGATION_STYLE, and flag conflicts when propagationStyle or propagationStyleExtract/propagationStyleInject already exists.
+            - Remaining iast.securityControlsConfiguration or experimental.iast.securityControlsConfiguration. Recommend moving the value to DD_IAST_SECURITY_CONTROLS_CONFIGURATION.
+            - Remaining appsec.extendedHeadersCollection.* and appsec.rasp.bodyCollection under appsec or experimental.appsec. Recommend Datadog UI / Remote Configuration.
+            - dd-trace migration env vars in .env, Dockerfile, docker-compose, YAML, shell, CI, or deployment files that deterministic JS/TS codemods intentionally do not modify.
+
+            Produce a Markdown table with columns:
+            File, Pattern, Why unresolved, Recommended action.
+
+            Keep findings specific. If the correct target requires a product or deployment decision, state that decision instead of guessing.

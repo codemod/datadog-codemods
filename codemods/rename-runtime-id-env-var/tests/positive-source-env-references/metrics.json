@@ -1,0 +1,25 @@
+{
+  "rename-runtime-id-env-var": [
+    {
+      "cardinality": {
+        "file": "tests/positive-source-env-references/input.tsx",
+        "result": "renamed-key"
+      },
+      "count": 1
+    },
+    {
+      "cardinality": {
+        "file": "tests/positive-source-env-references/input.tsx",
+        "result": "renamed-member"
+      },
+      "count": 1
+    },
+    {
+      "cardinality": {
+        "file": "tests/positive-source-env-references/input.tsx",
+        "result": "renamed-subscript"
+      },
+      "count": 1
+    }
+  ]
+}

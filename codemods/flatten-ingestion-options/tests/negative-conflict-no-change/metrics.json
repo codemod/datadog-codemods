@@ -1,0 +1,18 @@
+{
+  "flatten-ingestion-options": [
+    {
+      "cardinality": {
+        "file": "tests/negative-conflict-no-change/input.tsx",
+        "result": "skipped-conflict"
+      },
+      "count": 1
+    },
+    {
+      "cardinality": {
+        "file": "tests/negative-conflict-no-change/input.tsx",
+        "result": "skipped-context"
+      },
+      "count": 1
+    }
+  ]
+}

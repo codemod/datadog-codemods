@@ -1,0 +1,11 @@
+{
+  "flatten-ingestion-options": [
+    {
+      "cardinality": {
+        "file": "tests/positive-namespace-and-require/input.tsx",
+        "result": "flattened"
+      },
+      "count": 2
+    }
+  ]
+}

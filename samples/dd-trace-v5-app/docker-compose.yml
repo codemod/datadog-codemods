@@ -1,0 +1,7 @@
+services:
+  api:
+    build: .
+    environment:
+      DD_PROFILING_EXPERIMENTAL_CODEHOTSPOTS_ENABLED: "true"
+      DD_TRACE_EXPERIMENTAL_RUNTIME_ID_ENABLED: "true"
+      DD_TRACE_PROPAGATION_STYLE: "b3 single header"

@@ -1,0 +1,11 @@
+{
+  "add-link-object-argument": [
+    {
+      "cardinality": {
+        "file": "tests/positive-direct-factory-and-type/input.tsx",
+        "result": "rewritten"
+      },
+      "count": 3
+    }
+  ]
+}

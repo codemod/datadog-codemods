@@ -1,0 +1,11 @@
+{
+  "flatten-ingestion-options": [
+    {
+      "cardinality": {
+        "file": "tests/positive-init-options/input.tsx",
+        "result": "flattened"
+      },
+      "count": 1
+    }
+  ]
+}

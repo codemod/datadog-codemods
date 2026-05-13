@@ -1,0 +1,50 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/codemod/codemod/refs/heads/main/schemas/workflow.json
+
+version: "1"
+
+params:
+  schema:
+    run_ai_config_step:
+      name: "Run AI config step"
+      description: "Update exact profiling env var names in non-JS config files"
+      type: string
+      default: "false"
+
+nodes:
+  - id: apply-transform
+    name: Rename profiling experimental env vars
+    type: automatic
+    steps:
+      - name: "Rename profiling env vars in JS/TS source"
+        js-ast-grep:
+          js_file: scripts/codemod.ts
+          language: "tsx"
+          base_path: "."
+          include:
+            - "**/*.{js,jsx,ts,tsx,mjs,cjs}"
+          exclude:
+            - "**/node_modules/**"
+            - "**/dist/**"
+            - "**/build/**"
+            - "**/.next/**"
+            - "**/coverage/**"
+            - "**/.git/**"
+            - "**/tests/**/expected.ts"
+            - "**/tests/**/expected.tsx"
+
+      - name: "AI update profiling env vars in config files"
+        if: params.run_ai_config_step == "true"
+        ai:
+          prompt: |
+            You are completing the dd-trace-js 5.0 to 6.0 profiling env var migration after the deterministic JS/TS AST step.
+            You may edit non-JS configuration files only when the env var occurrence is active configuration.
+
+            Rename these exact env var identifiers, preserving values and formatting:
+            - DD_PROFILING_EXPERIMENTAL_CODEHOTSPOTS_ENABLED -> DD_PROFILING_CODEHOTSPOTS_ENABLED
+            - DD_PROFILING_EXPERIMENTAL_CPU_ENABLED -> DD_PROFILING_CPU_ENABLED
+            - DD_PROFILING_EXPERIMENTAL_ENDPOINT_COLLECTION_ENABLED -> DD_PROFILING_ENDPOINT_COLLECTION_ENABLED
+            - DD_PROFILING_EXPERIMENTAL_TIMELINE_ENABLED -> DD_PROFILING_TIMELINE_ENABLED
+
+            Allowed targets include .env files, Dockerfile ENV declarations, docker-compose/YAML environment maps, shell export/assignment lines, and CI/deployment env blocks.
+            Do not change comments, docs, arbitrary prose, unrelated string literals, or generated/vendor files.
+            If a file format is ambiguous, report it instead of editing it.

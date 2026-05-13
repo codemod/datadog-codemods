@@ -1,0 +1,11 @@
+{
+  "move-experimental-appsec-options": [
+    {
+      "cardinality": {
+        "file": "tests/positive-init-options/input.tsx",
+        "result": "moved"
+      },
+      "count": 1
+    }
+  ]
+}

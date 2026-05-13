@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+export DD_PROFILING_EXPERIMENTAL_ENDPOINT_COLLECTION_ENABLED=true
+export DD_TRACE_EXPERIMENTAL_RUNTIME_ID_ENABLED=true
+export DD_TRACE_PROPAGATION_STYLE="b3 single header"
+
+node dist/index.js

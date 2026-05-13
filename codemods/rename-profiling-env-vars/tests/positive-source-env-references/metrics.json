@@ -1,0 +1,36 @@
+{
+  "rename-profiling-env-vars": [
+    {
+      "cardinality": {
+        "env": "DD_PROFILING_EXPERIMENTAL_CODEHOTSPOTS_ENABLED",
+        "file": "tests/positive-source-env-references/input.tsx",
+        "result": "renamed-key"
+      },
+      "count": 1
+    },
+    {
+      "cardinality": {
+        "env": "DD_PROFILING_EXPERIMENTAL_CPU_ENABLED",
+        "file": "tests/positive-source-env-references/input.tsx",
+        "result": "renamed-member"
+      },
+      "count": 1
+    },
+    {
+      "cardinality": {
+        "env": "DD_PROFILING_EXPERIMENTAL_ENDPOINT_COLLECTION_ENABLED",
+        "file": "tests/positive-source-env-references/input.tsx",
+        "result": "renamed-key"
+      },
+      "count": 1
+    },
+    {
+      "cardinality": {
+        "env": "DD_PROFILING_EXPERIMENTAL_TIMELINE_ENABLED",
+        "file": "tests/positive-source-env-references/input.tsx",
+        "result": "renamed-subscript"
+      },
+      "count": 1
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "add-link-object-argument": [
+    {
+      "cardinality": {
+        "file": "tests/positive-positional-arguments/input.tsx",
+        "result": "rewritten"
+      },
+      "count": 2
+    }
+  ]
+}

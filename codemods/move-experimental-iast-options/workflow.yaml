@@ -1,0 +1,47 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/codemod/codemod/refs/heads/main/schemas/workflow.json
+
+version: "1"
+
+params:
+  schema:
+    run_ai_review:
+      name: "Run AI review"
+      description: "Report securityControlsConfiguration cases that this codemod intentionally skips"
+      type: string
+      default: "false"
+
+nodes:
+  - id: apply-transform
+    name: Move experimental.iast options
+    type: automatic
+    steps:
+      - name: "Move experimental.iast to iast"
+        js-ast-grep:
+          js_file: scripts/codemod.ts
+          language: "tsx"
+          base_path: "."
+          include:
+            - "**/*.{js,jsx,ts,tsx,mjs,cjs}"
+          exclude:
+            - "**/node_modules/**"
+            - "**/dist/**"
+            - "**/build/**"
+            - "**/.next/**"
+            - "**/coverage/**"
+            - "**/.git/**"
+            - "**/tests/**/expected.ts"
+            - "**/tests/**/expected.tsx"
+
+      - name: "AI report skipped IAST security controls"
+        if: params.run_ai_review == "true"
+        ai:
+          prompt: |
+            You are reviewing the target repository for the dd-trace-js 5.0 to 6.0 experimental.iast migration.
+            The deterministic AST step moves safe experimental.iast options to top-level iast.
+            Report only. Do not edit files, do not rewrite source, and do not add comments.
+
+            Find remaining iast.securityControlsConfiguration and experimental.iast.securityControlsConfiguration in dd-trace init configuration.
+            These cannot be safely rewritten because v6 expects DD_IAST_SECURITY_CONTROLS_CONFIGURATION and the target env/config file is repository-specific.
+
+            Produce a Markdown table with columns:
+            File, Pattern, Why skipped, Recommended action.

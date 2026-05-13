@@ -1,0 +1,20 @@
+{
+  "rename-plugin-list-options": [
+    {
+      "cardinality": {
+        "file": "tests/negative-unrelated-use-same-file/input.tsx",
+        "option": "blacklist",
+        "result": "skipped-context"
+      },
+      "count": 1
+    },
+    {
+      "cardinality": {
+        "file": "tests/negative-unrelated-use-same-file/input.tsx",
+        "option": "whitelist",
+        "result": "skipped-context"
+      },
+      "count": 2
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "rename-plugin-list-options": [
+    {
+      "cardinality": {
+        "file": "tests/positive-plugins-object/input.tsx",
+        "option": "blacklist",
+        "result": "renamed"
+      },
+      "count": 1
+    },
+    {
+      "cardinality": {
+        "file": "tests/positive-plugins-object/input.tsx",
+        "option": "whitelist",
+        "result": "renamed"
+      },
+      "count": 1
+    },
+    {
+      "cardinality": {
+        "file": "tests/positive-plugins-object/input.tsx",
+        "option": "whitelist",
+        "result": "skipped-context"
+      },
+      "count": 1
+    }
+  ]
+}

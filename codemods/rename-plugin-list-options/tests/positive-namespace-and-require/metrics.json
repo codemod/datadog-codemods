@@ -1,0 +1,20 @@
+{
+  "rename-plugin-list-options": [
+    {
+      "cardinality": {
+        "file": "tests/positive-namespace-and-require/input.tsx",
+        "option": "blacklist",
+        "result": "renamed"
+      },
+      "count": 1
+    },
+    {
+      "cardinality": {
+        "file": "tests/positive-namespace-and-require/input.tsx",
+        "option": "whitelist",
+        "result": "renamed"
+      },
+      "count": 1
+    }
+  ]
+}

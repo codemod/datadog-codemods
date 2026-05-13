@@ -1,0 +1,27 @@
+{
+  "name": "datadog-codemods",
+  "version": "0.1.0",
+  "private": true,
+  "description": "JSSG codemods for Datadog SDK upgrades",
+  "type": "module",
+  "scripts": {
+    "test": "pnpm -r --filter \"dd-trace-*\" test",
+    "check-types": "pnpm -r --filter \"dd-trace-*\" check-types",
+    "ci": "pnpm run test && pnpm run check-types"
+  },
+  "keywords": [
+    "codemod",
+    "datadog",
+    "dd-trace",
+    "jssg",
+    "ast-grep"
+  ],
+  "license": "MIT",
+  "packageManager": "pnpm@9.14.2",
+  "devDependencies": {
+    "@types/node": "latest"
+  },
+  "dependencies": {
+    "@jssg/utils": "^0.0.2"
+  }
+}

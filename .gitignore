@@ -1,0 +1,9 @@
+node_modules/
+.turbo/
+dist/
+build/
+coverage/
+.DS_Store
+.agents/
+.codex/
+AGENTS.md
