@@ -1,6 +1,6 @@
 {
   "name": "dd-trace-5-to-6-rename-b3-style",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "Rename b3 single header propagation style values to b3 in JS/TS source",
   "type": "module",
   "scripts": {

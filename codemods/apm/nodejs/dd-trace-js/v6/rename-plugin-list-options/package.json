@@ -1,6 +1,6 @@
 {
   "name": "dd-trace-5-to-6-rename-plugin-list-options",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Rename Datadog plugin whitelist/blacklist options to allowlist/blocklist",
   "type": "module",
   "scripts": {

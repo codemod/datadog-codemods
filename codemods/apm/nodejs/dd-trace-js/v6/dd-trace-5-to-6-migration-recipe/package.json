@@ -1,6 +1,6 @@
 {
   "name": "dd-trace-5-to-6-migration-recipe",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Run the dd-trace-js 5.0 to 6.0 migration codemods in sequence",
   "type": "module",
   "scripts": {

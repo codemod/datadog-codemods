@@ -1,7 +1,7 @@
 schema_version: '1.0'
 
 name: 'dd-trace-5-to-6-flatten-ingestion-options'
-version: '0.1.2'
+version: '0.2.0'
 description: 'Flatten dd-trace ingestion.sampleRate/rateLimit options to top-level TracerOptions'
 author: 'Datadog SDK Team'
 license: 'MIT'

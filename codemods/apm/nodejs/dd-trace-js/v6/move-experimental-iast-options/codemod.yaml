@@ -1,7 +1,7 @@
 schema_version: '1.0'
 
 name: 'dd-trace-5-to-6-move-experimental-iast-options'
-version: '0.1.3'
+version: '0.2.0'
 description: 'Move experimental.iast options to top-level iast when safe'
 author: 'Datadog SDK Team'
 license: 'MIT'
