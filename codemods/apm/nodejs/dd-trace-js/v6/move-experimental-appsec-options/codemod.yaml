@@ -1,7 +1,7 @@
 schema_version: '1.0'
 
 name: '@codemod/dd-trace-js-v6-move-experimental-appsec-options'
-version: '0.2.0'
+version: '0.3.0'
 description: 'Move experimental.appsec options to top-level appsec/apmTracingEnabled when safe'
 author: 'Datadog SDK Team'
 license: 'MIT'

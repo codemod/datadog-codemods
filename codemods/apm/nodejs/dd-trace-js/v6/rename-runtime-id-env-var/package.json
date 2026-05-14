@@ -1,6 +1,6 @@
 {
   "name": "@codemod/dd-trace-js-v6-rename-runtime-id-env-var",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Rename DD_TRACE_EXPERIMENTAL_RUNTIME_ID_ENABLED in JS/TS source",
   "type": "module",
   "scripts": {

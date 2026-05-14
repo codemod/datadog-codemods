@@ -1,7 +1,7 @@
 schema_version: '1.0'
 
 name: '@codemod/dd-trace-js-v6-rename-plugin-list-options'
-version: '0.2.0'
+version: '0.3.0'
 description: 'Rename Datadog plugin whitelist/blacklist options to allowlist/blocklist'
 author: 'Datadog SDK Team'
 license: 'MIT'

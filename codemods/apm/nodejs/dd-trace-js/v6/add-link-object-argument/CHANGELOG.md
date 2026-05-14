@@ -1,5 +1,11 @@
 # @codemod/dd-trace-js-v6-add-link-object-argument
 
+## 0.3.0
+
+### Minor Changes
+
+- ece9d42: Publish all dd-trace-js 5→6 codemods under the **`@codemod`** scope using **`@codemod/dd-trace-js-v6-<slug>`** (SDK + **destination** major **v6** + codemod slug). Update docs, workflow sources, and workspace `pnpm` filters to match. Fix recipe metadata test to satisfy lint. Use **`dd-trace-js`** (not `dd-trace`) in `codemod.yaml` registry keywords for discoverability. Add **`apm`**, **`nodejs`**, and **`v6`** to each package's `codemod.yaml` `keywords` list.
+
 ## 0.2.0
 
 ### Minor Changes

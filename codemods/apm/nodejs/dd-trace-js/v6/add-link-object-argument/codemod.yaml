@@ -1,7 +1,7 @@
 schema_version: '1.0'
 
 name: '@codemod/dd-trace-js-v6-add-link-object-argument'
-version: '0.2.0'
+version: '0.3.0'
 description: 'Rewrite Span.addLink(context, attributes) to Span.addLink({ context, attributes })'
 author: 'Datadog SDK Team'
 license: 'MIT'

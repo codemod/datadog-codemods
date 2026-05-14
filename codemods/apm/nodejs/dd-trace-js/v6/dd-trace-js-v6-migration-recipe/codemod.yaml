@@ -1,7 +1,7 @@
 schema_version: '1.0'
 
 name: '@codemod/dd-trace-js-v6-migration-recipe'
-version: '0.2.0'
+version: '0.3.0'
 description: 'Run the dd-trace-js 5.0 to 6.0 migration codemods in sequence'
 author: 'Datadog SDK Team'
 license: 'MIT'

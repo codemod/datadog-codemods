@@ -1,6 +1,6 @@
 {
   "name": "@codemod/dd-trace-js-v6-flatten-ingestion-options",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Flatten dd-trace ingestion.sampleRate/rateLimit options to top-level TracerOptions",
   "type": "module",
   "scripts": {
