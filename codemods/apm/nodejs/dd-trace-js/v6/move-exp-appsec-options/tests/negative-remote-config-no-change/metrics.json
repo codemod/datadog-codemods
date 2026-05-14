@@ -1,0 +1,11 @@
+{
+  "move-exp-appsec-options": [
+    {
+      "cardinality": {
+        "file": "tests/negative-remote-config-no-change/input.tsx",
+        "result": "skipped-remote-config"
+      },
+      "count": 2
+    }
+  ]
+}

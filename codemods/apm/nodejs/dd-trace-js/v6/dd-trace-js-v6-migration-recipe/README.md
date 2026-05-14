@@ -9,8 +9,8 @@ Individual codemod packages remain atomic.
 
 1. `@codemod/dd-trace-js-v6-add-link-object-argument`
 2. `@codemod/dd-trace-js-v6-rename-plugin-list-options`
-3. `@codemod/dd-trace-js-v6-move-experimental-iast-options`
-4. `@codemod/dd-trace-js-v6-move-experimental-appsec-options`
+3. `@codemod/dd-trace-js-v6-move-exp-iast-options`
+4. `@codemod/dd-trace-js-v6-move-exp-appsec-options`
 5. `@codemod/dd-trace-js-v6-flatten-ingestion-options`
 6. `@codemod/dd-trace-js-v6-rename-profiling-env-vars`
 7. `@codemod/dd-trace-js-v6-rename-runtime-id-env-var`

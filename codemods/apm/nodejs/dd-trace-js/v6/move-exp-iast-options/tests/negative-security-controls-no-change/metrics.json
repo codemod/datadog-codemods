@@ -1,0 +1,11 @@
+{
+  "move-exp-iast-options": [
+    {
+      "cardinality": {
+        "file": "tests/negative-security-controls-no-change/input.tsx",
+        "result": "skipped-security-controls"
+      },
+      "count": 1
+    }
+  ]
+}

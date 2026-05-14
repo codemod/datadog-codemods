@@ -35,11 +35,11 @@ nodes:
 
       - name: 'Move experimental.iast options'
         codemod:
-          source: '@codemod/dd-trace-js-v6-move-experimental-iast-options'
+          source: '@codemod/dd-trace-js-v6-move-exp-iast-options'
 
       - name: 'Move experimental.appsec options'
         codemod:
-          source: '@codemod/dd-trace-js-v6-move-experimental-appsec-options'
+          source: '@codemod/dd-trace-js-v6-move-exp-appsec-options'
 
       - name: 'Flatten ingestion options'
         codemod:
