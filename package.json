@@ -25,7 +25,7 @@
     "version-packages": "changeset version && bash scripts/sync-codemod-versions.sh"
   },
   "dependencies": {
-    "@jssg/utils": "^0.0.2"
+    "@jssg/utils": "^0.0.7"
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.0",
