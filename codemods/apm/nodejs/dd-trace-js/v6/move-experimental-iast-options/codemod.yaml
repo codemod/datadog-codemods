@@ -1,6 +1,6 @@
 schema_version: '1.0'
 
-name: '@codemod/dd-trace-js-v6-move-experimental-iast-options'
+name: '@codemod/dd-trace-js-v6-move-exp-iast-options'
 version: '0.2.0'
 description: 'Move experimental.iast options to top-level iast when safe'
 author: 'Datadog SDK Team'

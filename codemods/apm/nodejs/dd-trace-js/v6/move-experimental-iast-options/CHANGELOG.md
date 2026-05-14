@@ -1,4 +1,4 @@
-# @codemod/dd-trace-js-v6-move-experimental-iast-options
+# @codemod/dd-trace-js-v6-move-exp-iast-options
 
 ## 0.2.0
 

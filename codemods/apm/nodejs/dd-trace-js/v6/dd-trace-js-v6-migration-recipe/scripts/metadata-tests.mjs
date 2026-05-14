@@ -5,8 +5,8 @@ import test from 'node:test'
 const STEP_SOURCES = [
   '@codemod/dd-trace-js-v6-add-link-object-argument',
   '@codemod/dd-trace-js-v6-rename-plugin-list-options',
-  '@codemod/dd-trace-js-v6-move-experimental-iast-options',
-  '@codemod/dd-trace-js-v6-move-experimental-appsec-options',
+  '@codemod/dd-trace-js-v6-move-exp-iast-options',
+  '@codemod/dd-trace-js-v6-move-exp-appsec-options',
   '@codemod/dd-trace-js-v6-flatten-ingestion-options',
   '@codemod/dd-trace-js-v6-rename-profiling-env-vars',
   '@codemod/dd-trace-js-v6-rename-runtime-id-env-var',

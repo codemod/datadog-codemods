@@ -52,43 +52,43 @@ npx codemod @codemod/dd-trace-js-v6-rename-plugin-list-options --target <path>
 See
 [@codemod/dd-trace-js-v6-rename-plugin-list-options](https://app.codemod.com/registry/@codemod/dd-trace-js-v6-rename-plugin-list-options). · [source](./rename-plugin-list-options/)
 
-#### `@codemod/dd-trace-js-v6-move-experimental-iast-options`
+#### `@codemod/dd-trace-js-v6-move-exp-iast-options`
 
 Moves safe `experimental.iast.*` programmatic options to top-level `iast.*`.
 Skips `securityControlsConfiguration`, which is env-only in v6.
 
 ```bash
-npx codemod @codemod/dd-trace-js-v6-move-experimental-iast-options --target <path>
+npx codemod @codemod/dd-trace-js-v6-move-exp-iast-options --target <path>
 ```
 
 See
-[@codemod/dd-trace-js-v6-move-experimental-iast-options](https://app.codemod.com/registry/@codemod/dd-trace-js-v6-move-experimental-iast-options). · [source](./move-experimental-iast-options/)
+[@codemod/dd-trace-js-v6-move-exp-iast-options](https://app.codemod.com/registry/@codemod/dd-trace-js-v6-move-exp-iast-options). · [source](./move-experimental-iast-options/)
 
 Optional report-only AI review for skipped security controls:
 
 ```bash
-npx codemod @codemod/dd-trace-js-v6-move-experimental-iast-options \
+npx codemod @codemod/dd-trace-js-v6-move-exp-iast-options \
   --target <path> \
   --param run_ai_review=true
 ```
 
-#### `@codemod/dd-trace-js-v6-move-experimental-appsec-options`
+#### `@codemod/dd-trace-js-v6-move-exp-appsec-options`
 
 Moves safe `experimental.appsec.*` programmatic options to top-level `appsec.*`
 and rewrites `experimental.appsec.standalone.enabled` to `apmTracingEnabled`.
 Skips options that must move to Datadog UI / Remote Configuration.
 
 ```bash
-npx codemod @codemod/dd-trace-js-v6-move-experimental-appsec-options --target <path>
+npx codemod @codemod/dd-trace-js-v6-move-exp-appsec-options --target <path>
 ```
 
 See
-[@codemod/dd-trace-js-v6-move-experimental-appsec-options](https://app.codemod.com/registry/@codemod/dd-trace-js-v6-move-experimental-appsec-options). · [source](./move-experimental-appsec-options/)
+[@codemod/dd-trace-js-v6-move-exp-appsec-options](https://app.codemod.com/registry/@codemod/dd-trace-js-v6-move-exp-appsec-options). · [source](./move-experimental-appsec-options/)
 
 Optional report-only AI review for skipped AppSec Remote Configuration options:
 
 ```bash
-npx codemod @codemod/dd-trace-js-v6-move-experimental-appsec-options \
+npx codemod @codemod/dd-trace-js-v6-move-exp-appsec-options \
   --target <path> \
   --param run_ai_review=true
 ```
@@ -178,10 +178,10 @@ npx codemod @codemod/dd-trace-js-v6-rename-b3-style \
 | ----------------------------------------------------------- | ------------------------------------------------------------------------------- |
 | `Span.addLink(spanContext, attributes)` removed             | `@codemod/dd-trace-js-v6-add-link-object-argument`                              |
 | Plugin `whitelist` / `blacklist` options removed from types | `@codemod/dd-trace-js-v6-rename-plugin-list-options`                            |
-| `experimental.iast` configuration removed                   | `@codemod/dd-trace-js-v6-move-experimental-iast-options`                        |
+| `experimental.iast` configuration removed                   | `@codemod/dd-trace-js-v6-move-exp-iast-options`                                 |
 | `iast.securityControlsConfiguration` is env-only            | Report-only AI review; manual move to `DD_IAST_SECURITY_CONTROLS_CONFIGURATION` |
 | AppSec extended-data-collection programmatic config removed | Report-only AI review; manual Datadog UI / Remote Configuration move            |
-| `experimental.appsec` configuration removed                 | `@codemod/dd-trace-js-v6-move-experimental-appsec-options`                      |
+| `experimental.appsec` configuration removed                 | `@codemod/dd-trace-js-v6-move-exp-appsec-options`                               |
 | `ingestion` option removed                                  | `@codemod/dd-trace-js-v6-flatten-ingestion-options`                             |
 | Profiling experimental env aliases removed                  | `@codemod/dd-trace-js-v6-rename-profiling-env-vars`                             |
 | `DD_TRACE_EXPERIMENTAL_RUNTIME_ID_ENABLED` removed          | `@codemod/dd-trace-js-v6-rename-runtime-id-env-var`                             |

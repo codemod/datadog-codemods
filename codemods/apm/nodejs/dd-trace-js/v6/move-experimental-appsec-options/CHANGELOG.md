@@ -1,4 +1,4 @@
-# @codemod/dd-trace-js-v6-move-experimental-appsec-options
+# @codemod/dd-trace-js-v6-move-exp-appsec-options
 
 ## 0.2.0
 

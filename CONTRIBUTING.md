@@ -110,6 +110,7 @@ codemods/<product>/<stack>/<library>/<migration>/<slug>/
 Conventions:
 
 - Prefer the registry naming pattern **`@codemod/<sdk>-<destination-major>-<codemod-slug>`** (example: `@codemod/dd-trace-js-v6-flatten-ingestion-options` for migrating **to** dd-trace-js **v6**) in `package.json` / `codemod.yaml`.
+- The Codemod registry limits scoped package names to **50 characters** total (including `@codemod/`). If the natural slug is too long, shorten it (for example `@codemod/dd-trace-js-v6-move-exp-iast-options` instead of spelling out `experimental`).
 - The filesystem folder name under `codemods/.../<migration>/` should usually match that slug, but it may differ when a shorter registry name is clearer—see `rename-b3-single-header-propagation-style/` publishing as `@codemod/dd-trace-js-v6-rename-b3-style` in [dd-trace-js v6 README](./codemods/apm/nodejs/dd-trace-js/v6/README.md).
 - Keep rewrites conservative. If a step needs a human decision, Datadog account work, or Remote Configuration, prefer a detector, recipe parameter, or issue draft instead of an unsafe transform.
 
