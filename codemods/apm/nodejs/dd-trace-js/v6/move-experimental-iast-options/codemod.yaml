@@ -1,0 +1,20 @@
+schema_version: '1.0'
+
+name: 'dd-trace-5-to-6-move-experimental-iast-options'
+version: '0.1.2'
+description: 'Move experimental.iast options to top-level iast when safe'
+author: 'Datadog SDK Team'
+license: 'MIT'
+workflow: 'workflow.yaml'
+repository: 'https://github.com/codemod/datadog-codemods/tree/main/codemods/move-experimental-iast-options'
+
+targets:
+  languages: ['javascript', 'jsx', 'typescript', 'tsx']
+
+keywords: ['datadog', 'dd-trace', 'v5-to-v6']
+
+registry:
+  access: 'public'
+  visibility: 'public'
+
+capabilities: []

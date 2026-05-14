@@ -1,0 +1,47 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/codemod/codemod/refs/heads/main/schemas/workflow.json
+
+version: '1'
+
+params:
+  schema:
+    run_ai_config_step:
+      name: 'Run AI config step'
+      description: 'Update the runtime id env var name in non-JS config files'
+      type: boolean
+      default: false
+
+nodes:
+  - id: apply-transform
+    name: Rename runtime id env var
+    type: automatic
+    steps:
+      - name: 'Rename runtime id env var in JS/TS source'
+        js-ast-grep:
+          js_file: scripts/codemod.ts
+          language: 'tsx'
+          base_path: '.'
+          include:
+            - '**/*.{js,jsx,ts,tsx,mjs,cjs}'
+          exclude:
+            - '**/node_modules/**'
+            - '**/dist/**'
+            - '**/build/**'
+            - '**/.next/**'
+            - '**/coverage/**'
+            - '**/.git/**'
+            - '**/tests/**/expected.ts'
+            - '**/tests/**/expected.tsx'
+
+      - name: 'AI update runtime id env var in config files'
+        if: params.run_ai_config_step == true
+        ai:
+          prompt: |
+            You are completing the dd-trace-js 5.0 to 6.0 runtime id env var migration after the deterministic JS/TS AST step.
+            You may edit non-JS configuration files only when the env var occurrence is active configuration.
+
+            Rename this exact env var identifier, preserving values and formatting:
+            - DD_TRACE_EXPERIMENTAL_RUNTIME_ID_ENABLED -> DD_RUNTIME_METRICS_RUNTIME_ID_ENABLED
+
+            Allowed targets include .env files, Dockerfile ENV declarations, docker-compose/YAML environment maps, shell export/assignment lines, and CI/deployment env blocks.
+            Do not change comments, docs, arbitrary prose, unrelated string literals, or generated/vendor files.
+            If a file format is ambiguous, report it instead of editing it.
