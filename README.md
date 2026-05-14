@@ -91,4 +91,4 @@ codemods, deferred codemods, and manual migration checks.
 
 ## Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md).
+See [CONTRIBUTING.md](./CONTRIBUTING.md). If you are using an AI coding agent, start with [AGENTS.md](./AGENTS.md).
