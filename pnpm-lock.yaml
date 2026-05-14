@@ -88,7 +88,7 @@ importers:
         specifier: latest
         version: 6.0.3
 
-  codemods/apm/nodejs/dd-trace-js/v6/move-experimental-appsec-options:
+  codemods/apm/nodejs/dd-trace-js/v6/move-exp-appsec-options:
     dependencies:
       '@jssg/utils':
         specifier: ^0.0.7
@@ -104,7 +104,7 @@ importers:
         specifier: latest
         version: 6.0.3
 
-  codemods/apm/nodejs/dd-trace-js/v6/move-experimental-iast-options:
+  codemods/apm/nodejs/dd-trace-js/v6/move-exp-iast-options:
     dependencies:
       '@jssg/utils':
         specifier: ^0.0.7

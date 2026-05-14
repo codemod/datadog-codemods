@@ -1,0 +1,11 @@
+{
+  "move-exp-appsec-options": [
+    {
+      "cardinality": {
+        "file": "tests/positive-preserve-comments/input.tsx",
+        "result": "moved"
+      },
+      "count": 1
+    }
+  ]
+}

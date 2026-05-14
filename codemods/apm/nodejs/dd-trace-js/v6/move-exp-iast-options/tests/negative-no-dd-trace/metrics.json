@@ -1,0 +1,11 @@
+{
+  "move-exp-iast-options": [
+    {
+      "cardinality": {
+        "file": "tests/negative-no-dd-trace/input.tsx",
+        "result": "skipped-context"
+      },
+      "count": 1
+    }
+  ]
+}
