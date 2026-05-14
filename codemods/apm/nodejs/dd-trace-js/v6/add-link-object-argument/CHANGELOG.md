@@ -1,4 +1,4 @@
-# dd-trace-5-to-6-add-link-object-argument
+# @codemod/dd-trace-js-v6-add-link-object-argument
 
 ## 0.2.0
 

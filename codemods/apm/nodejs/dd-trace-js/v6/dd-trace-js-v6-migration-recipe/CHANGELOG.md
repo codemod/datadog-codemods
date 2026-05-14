@@ -1,4 +1,4 @@
-# dd-trace-5-to-6-migration-recipe
+# @codemod/dd-trace-js-v6-migration-recipe
 
 ## 0.2.0
 

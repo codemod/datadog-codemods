@@ -1,4 +1,4 @@
-# dd-trace-5-to-6-add-link-object-argument
+# @codemod/dd-trace-js-v6-add-link-object-argument
 
 Rewrites the Datadog v5 `Span.addLink(context, attributes)` overload to the v6
 single-argument object shape:

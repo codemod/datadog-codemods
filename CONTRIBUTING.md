@@ -24,7 +24,7 @@ pnpm run lint
 # Lint and auto-fix
 pnpm run lint:fix
 
-# Run all codemod package tests (dd-trace-* workspace packages)
+# Run all codemod package tests (`@codemod/dd-trace-js-v6-*` workspace packages)
 pnpm run test
 
 # Typecheck all codemod packages
@@ -32,6 +32,9 @@ pnpm run check-types
 
 # Same checks as the push job on main (tests + typecheck)
 pnpm run ci
+
+# Verify URLs in tracked Markdown (also runs in CI)
+pnpm run docs:links
 ```
 
 Run one workspace package (the `pnpm --filter` value is the `name` field in that package’s `package.json`):
@@ -51,8 +54,8 @@ The hook only inspects **staged** files. Files you did not touch can still fail 
 
 ## CI
 
-- **Pull requests to `main`:** `.github/workflows/ci.yml` installs with `pnpm install --frozen-lockfile`, runs **oxfmt** / **oxlint** on changed files, runs **test** and **check-types** only for codemod packages touched by the diff, and enforces **changesets** (see below).
-- **Pushes to `main`:** the same workflow runs full-workspace `pnpm run ci` (all `dd-trace-*` tests and typechecks).
+- **Pull requests to `main`:** `.github/workflows/ci.yml` installs with `pnpm install --frozen-lockfile`, runs **oxfmt** / **oxlint** on changed files, **`pnpm run docs:links`** on tracked Markdown, runs **test** and **check-types** only for codemod packages touched by the diff, and enforces **changesets** (see below).
+- **Pushes to `main`:** the same workflow runs **`pnpm run docs:links`** and full-workspace `pnpm run ci` (all `@codemod/dd-trace-js-v6-*` tests and typechecks).
 
 Match that locally before you push.
 
@@ -85,9 +88,9 @@ Commit the new markdown file under `.changeset/` with your PR.
 ## Release workflow
 
 1. Merge a PR that includes one or more changesets into `main`.
-2. [`.github/workflows/release.yml`](./.github/workflows/release.yml) consumes changesets, commits **Version Packages** to `main`, syncs `codemod.yaml` versions, creates **`name@vversion`** git tags for newly versioned packages, and publishes those packages with [`codemod/publish-action`](https://github.com/codemod-com/publish-action).
+2. [`.github/workflows/release.yml`](./.github/workflows/release.yml) consumes changesets, commits **Version Packages** to `main`, syncs `codemod.yaml` versions, creates **`name@vversion`** git tags for newly versioned packages, and publishes those packages with [`codemod/publish-action`](https://github.com/codemod/publish-action).
 
-Do not hand-edit the `version` field in package `package.json` or `codemod.yaml` to “simulate” a release — automation owns bumps. The **Publish Codemod (Manual)** workflow ([`.github/workflows/publish.yml`](./.github/workflows/publish.yml)) is for emergencies: supply the path **under** `codemods/`, e.g. `apm/nodejs/dd-trace-js/v6/add-link-object-argument`.
+Do not hand-edit the `version` field in package `package.json` or `codemod.yaml` to “simulate” a release — automation owns bumps. The **Publish Codemod (Manual)** workflow ([`.github/workflows/publish.yml`](./.github/workflows/publish.yml)) is for emergencies: supply the path **under** `codemods/`, e.g. `apm/nodejs/dd-trace-js/v6/add-link-object-argument` or `apm/nodejs/dd-trace-js/v6/dd-trace-js-v6-migration-recipe`.
 
 ## Adding a new codemod
 
@@ -106,7 +109,8 @@ codemods/<product>/<stack>/<library>/<migration>/<slug>/
 
 Conventions:
 
-- Prefer the existing naming pattern for dd-trace-js 5→6 packages: `dd-trace-5-to-6-<slug>` in `package.json` / `codemod.yaml`.
+- Prefer the registry naming pattern **`@codemod/<sdk>-<destination-major>-<codemod-slug>`** (example: `@codemod/dd-trace-js-v6-flatten-ingestion-options` for migrating **to** dd-trace-js **v6**) in `package.json` / `codemod.yaml`.
+- The filesystem folder name under `codemods/.../<migration>/` should usually match that slug, but it may differ when a shorter registry name is clearer—see `rename-b3-single-header-propagation-style/` publishing as `@codemod/dd-trace-js-v6-rename-b3-style` in [dd-trace-js v6 README](./codemods/apm/nodejs/dd-trace-js/v6/README.md).
 - Keep rewrites conservative. If a step needs a human decision, Datadog account work, or Remote Configuration, prefer a detector, recipe parameter, or issue draft instead of an unsafe transform.
 
 Use an existing sibling codemod in the same migration folder as a template.

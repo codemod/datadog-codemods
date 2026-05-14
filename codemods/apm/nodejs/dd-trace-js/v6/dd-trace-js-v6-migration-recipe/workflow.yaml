@@ -21,41 +21,41 @@ params:
       default: false
 
 nodes:
-  - id: dd-trace-5-to-6-migration
+  - id: dd-trace-js-v6-migration
     name: dd-trace 5 to 6 Migration
     type: automatic
     steps:
       - name: 'Rewrite Span.addLink positional overload'
         codemod:
-          source: 'dd-trace-5-to-6-add-link-object-argument'
+          source: '@codemod/dd-trace-js-v6-add-link-object-argument'
 
       - name: 'Rename Datadog plugin allow/block list options'
         codemod:
-          source: 'dd-trace-5-to-6-rename-plugin-list-options'
+          source: '@codemod/dd-trace-js-v6-rename-plugin-list-options'
 
       - name: 'Move experimental.iast options'
         codemod:
-          source: 'dd-trace-5-to-6-move-experimental-iast-options'
+          source: '@codemod/dd-trace-js-v6-move-experimental-iast-options'
 
       - name: 'Move experimental.appsec options'
         codemod:
-          source: 'dd-trace-5-to-6-move-experimental-appsec-options'
+          source: '@codemod/dd-trace-js-v6-move-experimental-appsec-options'
 
       - name: 'Flatten ingestion options'
         codemod:
-          source: 'dd-trace-5-to-6-flatten-ingestion-options'
+          source: '@codemod/dd-trace-js-v6-flatten-ingestion-options'
 
       - name: 'Rename profiling env vars in JS/TS source'
         codemod:
-          source: 'dd-trace-5-to-6-rename-profiling-env-vars'
+          source: '@codemod/dd-trace-js-v6-rename-profiling-env-vars'
 
       - name: 'Rename runtime id env var in JS/TS source'
         codemod:
-          source: 'dd-trace-5-to-6-rename-runtime-id-env-var'
+          source: '@codemod/dd-trace-js-v6-rename-runtime-id-env-var'
 
       - name: 'Rename b3 single header propagation style in JS/TS source'
         codemod:
-          source: 'dd-trace-5-to-6-rename-b3-style'
+          source: '@codemod/dd-trace-js-v6-rename-b3-style'
 
       - name: 'AI report unresolved dd-trace migration blockers'
         if: params.run_final_ai_review == true

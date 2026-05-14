@@ -1,4 +1,4 @@
-# dd-trace-5-to-6-flatten-ingestion-options
+# @codemod/dd-trace-js-v6-flatten-ingestion-options
 
 Flattens the removed `ingestion` wrapper in dd-trace v6:
 
