@@ -20,12 +20,15 @@
     "format:check": "oxfmt --check .",
     "lint": "oxlint --type-aware --type-check --deny-warnings .",
     "lint:fix": "oxlint --type-aware --type-check --fix .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "changeset": "changeset",
+    "version-packages": "changeset version && bash scripts/sync-codemod-versions.sh"
   },
   "dependencies": {
     "@jssg/utils": "^0.0.2"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.31.0",
     "@types/node": "latest",
     "husky": "^9.1.7",
     "lint-staged": "^17.0.4",
