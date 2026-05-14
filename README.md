@@ -48,7 +48,7 @@ destination-major folder—for example [dd-trace-js 5.x → 6.x](./codemods/apm/
 Quick start for the orchestrated dd-trace-js 5→6 workflow:
 
 ```bash
-npx codemod dd-trace-5-to-6-migration-recipe --target <path>
+npx codemod @codemod/dd-trace-js-v6-migration-recipe --target <path>
 ```
 
 Packages are listed in the [Codemod Registry](https://app.codemod.com/registry).

@@ -1,4 +1,4 @@
-# dd-trace-5-to-6-move-experimental-appsec-options
+# @codemod/dd-trace-js-v6-move-experimental-appsec-options
 
 Moves removed `experimental.appsec.*` programmatic aliases to top-level
 `appsec.*`, and rewrites `experimental.appsec.standalone.enabled` to

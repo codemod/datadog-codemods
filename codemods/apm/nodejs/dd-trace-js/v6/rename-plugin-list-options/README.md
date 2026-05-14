@@ -1,4 +1,4 @@
-# dd-trace-5-to-6-rename-plugin-list-options
+# @codemod/dd-trace-js-v6-rename-plugin-list-options
 
 Renames removed Datadog plugin option aliases:
 

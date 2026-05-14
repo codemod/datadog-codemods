@@ -1,4 +1,4 @@
-# dd-trace-5-to-6-rename-runtime-id-env-var
+# @codemod/dd-trace-js-v6-rename-runtime-id-env-var
 
 ## 0.2.0
 

@@ -1,4 +1,4 @@
-# dd-trace-5-to-6-move-experimental-iast-options
+# @codemod/dd-trace-js-v6-move-experimental-iast-options
 
 Moves removed `experimental.iast.*` programmatic aliases to the canonical
 top-level `iast.*` object.

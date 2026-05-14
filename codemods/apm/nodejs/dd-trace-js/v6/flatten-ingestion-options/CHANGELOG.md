@@ -1,4 +1,4 @@
-# dd-trace-5-to-6-flatten-ingestion-options
+# @codemod/dd-trace-js-v6-flatten-ingestion-options
 
 ## 0.2.0
 

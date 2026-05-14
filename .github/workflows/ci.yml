@@ -68,6 +68,9 @@ jobs:
         if: steps.changed.outputs.files != ''
         run: pnpm run lint ${{ steps.changed.outputs.files }}
 
+      - name: Markdown link check
+        run: pnpm run docs:links
+
       - name: Test (changed codemods)
         if: steps.codemods.outputs.dirs != ''
         run: |
@@ -100,6 +103,7 @@ jobs:
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
+      - run: pnpm run docs:links
       - run: pnpm run ci
 
   changeset-check:

@@ -1,4 +1,4 @@
-# dd-trace-5-to-6-rename-b3-style
+# @codemod/dd-trace-js-v6-rename-b3-style
 
 ## 0.2.0
 

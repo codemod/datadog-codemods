@@ -1,4 +1,4 @@
-# dd-trace-5-to-6-rename-profiling-env-vars
+# @codemod/dd-trace-js-v6-rename-profiling-env-vars
 
 Renames Datadog profiling environment variable aliases removed in dd-trace v6:
 

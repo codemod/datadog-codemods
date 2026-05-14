@@ -1,4 +1,4 @@
-# dd-trace-5-to-6-rename-runtime-id-env-var
+# @codemod/dd-trace-js-v6-rename-runtime-id-env-var
 
 Renames `DD_TRACE_EXPERIMENTAL_RUNTIME_ID_ENABLED` to
 `DD_RUNTIME_METRICS_RUNTIME_ID_ENABLED` in JS/TS source.

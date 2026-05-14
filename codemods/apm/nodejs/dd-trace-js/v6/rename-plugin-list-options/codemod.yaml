@@ -1,6 +1,6 @@
 schema_version: '1.0'
 
-name: 'dd-trace-5-to-6-rename-plugin-list-options'
+name: '@codemod/dd-trace-js-v6-rename-plugin-list-options'
 version: '0.2.0'
 description: 'Rename Datadog plugin whitelist/blacklist options to allowlist/blocklist'
 author: 'Datadog SDK Team'
@@ -11,7 +11,7 @@ repository: 'https://github.com/codemod/datadog-codemods'
 targets:
   languages: ['javascript', 'jsx', 'typescript', 'tsx']
 
-keywords: ['datadog', 'dd-trace', 'v5-to-v6']
+keywords: ['apm', 'nodejs', 'v6', 'datadog', 'dd-trace-js', 'v5-to-v6']
 
 registry:
   access: 'public'
