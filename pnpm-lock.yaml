@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@jssg/utils':
-        specifier: ^0.0.2
-        version: 0.0.2
+        specifier: ^0.0.7
+        version: 0.0.7
     devDependencies:
       '@changesets/cli':
         specifier: ^2.31.0
@@ -40,8 +40,8 @@ importers:
   codemods/apm/nodejs/dd-trace-js/v6/add-link-object-argument:
     dependencies:
       '@jssg/utils':
-        specifier: ^0.0.2
-        version: 0.0.2
+        specifier: ^0.0.7
+        version: 0.0.7
     devDependencies:
       '@codemod.com/jssg-types':
         specifier: latest
@@ -53,13 +53,27 @@ importers:
         specifier: latest
         version: 6.0.3
 
-  codemods/apm/nodejs/dd-trace-js/v6/dd-trace-5-to-6-migration-recipe: {}
+  codemods/apm/nodejs/dd-trace-js/v6/dd-trace-5-to-6-migration-recipe:
+    dependencies:
+      '@jssg/utils':
+        specifier: ^0.0.7
+        version: 0.0.7
+    devDependencies:
+      '@codemod.com/jssg-types':
+        specifier: latest
+        version: 1.6.0
+      '@types/node':
+        specifier: latest
+        version: 25.7.0
+      typescript:
+        specifier: latest
+        version: 6.0.3
 
   codemods/apm/nodejs/dd-trace-js/v6/flatten-ingestion-options:
     dependencies:
       '@jssg/utils':
-        specifier: ^0.0.2
-        version: 0.0.2
+        specifier: ^0.0.7
+        version: 0.0.7
     devDependencies:
       '@codemod.com/jssg-types':
         specifier: latest
@@ -74,8 +88,8 @@ importers:
   codemods/apm/nodejs/dd-trace-js/v6/move-experimental-appsec-options:
     dependencies:
       '@jssg/utils':
-        specifier: ^0.0.2
-        version: 0.0.2
+        specifier: ^0.0.7
+        version: 0.0.7
     devDependencies:
       '@codemod.com/jssg-types':
         specifier: latest
@@ -90,8 +104,8 @@ importers:
   codemods/apm/nodejs/dd-trace-js/v6/move-experimental-iast-options:
     dependencies:
       '@jssg/utils':
-        specifier: ^0.0.2
-        version: 0.0.2
+        specifier: ^0.0.7
+        version: 0.0.7
     devDependencies:
       '@codemod.com/jssg-types':
         specifier: latest
@@ -106,8 +120,8 @@ importers:
   codemods/apm/nodejs/dd-trace-js/v6/rename-b3-single-header-propagation-style:
     dependencies:
       '@jssg/utils':
-        specifier: ^0.0.2
-        version: 0.0.2
+        specifier: ^0.0.7
+        version: 0.0.7
     devDependencies:
       '@codemod.com/jssg-types':
         specifier: latest
@@ -122,8 +136,8 @@ importers:
   codemods/apm/nodejs/dd-trace-js/v6/rename-plugin-list-options:
     dependencies:
       '@jssg/utils':
-        specifier: ^0.0.2
-        version: 0.0.2
+        specifier: ^0.0.7
+        version: 0.0.7
     devDependencies:
       '@codemod.com/jssg-types':
         specifier: latest
@@ -138,8 +152,8 @@ importers:
   codemods/apm/nodejs/dd-trace-js/v6/rename-profiling-env-vars:
     dependencies:
       '@jssg/utils':
-        specifier: ^0.0.2
-        version: 0.0.2
+        specifier: ^0.0.7
+        version: 0.0.7
     devDependencies:
       '@codemod.com/jssg-types':
         specifier: latest
@@ -154,8 +168,8 @@ importers:
   codemods/apm/nodejs/dd-trace-js/v6/rename-runtime-id-env-var:
     dependencies:
       '@jssg/utils':
-        specifier: ^0.0.2
-        version: 0.0.2
+        specifier: ^0.0.7
+        version: 0.0.7
     devDependencies:
       '@codemod.com/jssg-types':
         specifier: latest
@@ -240,8 +254,8 @@ packages:
       '@types/node':
         optional: true
 
-  '@jssg/utils@0.0.2':
-    resolution: {integrity: sha512-eCQv5Xs9yfI6OKq2PQ8SyKsxPhdiaJY/XAFJmsZiVbsK5DIBBmGBA95CsyD4JFWXDKkNv6Q7ER/Kbp6/uWzB2w==}
+  '@jssg/utils@0.0.7':
+    resolution: {integrity: sha512-QNFw5L574aaMGoHL12dwmgN89uSsf6avU+4yf3a7qx2URSSA92lNvKJD/60gfM0OL8jyijjiUFHQVyvVtY5ODQ==}
 
   '@manypkg/find-root@1.1.0':
     resolution: {integrity: sha512-mki5uBvhHzO8kYYix/WRy2WX8S3B5wdVSc9D6KcU5lQNglP2yt58/VfLuAK49glRXChosY8ap2oJ1qgma3GUVA==}
@@ -1115,7 +1129,7 @@ snapshots:
     optionalDependencies:
       '@types/node': 25.7.0
 
-  '@jssg/utils@0.0.2': {}
+  '@jssg/utils@0.0.7': {}
 
   '@manypkg/find-root@1.1.0':
     dependencies:

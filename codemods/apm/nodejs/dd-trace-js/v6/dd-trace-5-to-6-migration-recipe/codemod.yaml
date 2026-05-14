@@ -6,7 +6,7 @@ description: 'Run the dd-trace-js 5.0 to 6.0 migration codemods in sequence'
 author: 'Datadog SDK Team'
 license: 'MIT'
 workflow: 'workflow.yaml'
-repository: 'https://github.com/codemod/datadog-codemods/tree/main/codemods/dd-trace-5-to-6-migration-recipe'
+repository: 'https://github.com/codemod/datadog-codemods'
 
 targets:
   languages: ['javascript', 'jsx', 'typescript', 'tsx']

@@ -1,6 +1,6 @@
 # dd-trace-js 5.x → 6.x
 
-JSSG codemods aligned with the upstream [dd-trace-js migration guide](https://github.com/DataDog/dd-trace-js/blob/master/MIGRATING.md#50-to-60-unreleased). Each directory under this folder is one Codemod package (metadata, workflow, scripts, tests).
+JSSG codemods aligned with the upstream [dd-trace-js migration guide](https://github.com/DataDog/dd-trace-js/blob/master/MIGRATING.md). Each directory under this folder is one Codemod package (metadata, workflow, scripts, tests).
 
 Run codemods with the [Codemod CLI](https://docs.codemod.com/cli):
 

@@ -6,7 +6,7 @@ description: 'Move experimental.appsec options to top-level appsec/apmTracingEna
 author: 'Datadog SDK Team'
 license: 'MIT'
 workflow: 'workflow.yaml'
-repository: 'https://github.com/codemod/datadog-codemods/tree/main/codemods/move-experimental-appsec-options'
+repository: 'https://github.com/codemod/datadog-codemods'
 
 targets:
   languages: ['javascript', 'jsx', 'typescript', 'tsx']

@@ -6,7 +6,7 @@ description: 'Rename DD_TRACE_EXPERIMENTAL_RUNTIME_ID_ENABLED in JS/TS source'
 author: 'Datadog SDK Team'
 license: 'MIT'
 workflow: 'workflow.yaml'
-repository: 'https://github.com/codemod/datadog-codemods/tree/main/codemods/rename-runtime-id-env-var'
+repository: 'https://github.com/codemod/datadog-codemods'
 
 targets:
   languages: ['javascript', 'jsx', 'typescript', 'tsx']

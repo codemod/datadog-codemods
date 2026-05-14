@@ -83,12 +83,6 @@ pnpm dlx codemod@latest jssg run --language tsx --allow-dirty \
   codemods/apm/nodejs/dd-trace-js/v6/add-link-object-argument/scripts/codemod.ts
 ```
 
-## Issue Backlog
-
-GitHub issue drafts live in [issues](./issues). The index in
-[issues/README.md](./issues/README.md) lists the issues to open for implemented
-codemods, deferred codemods, and manual migration checks.
-
 ## Contributing
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md). If you are using an AI coding agent, start with [AGENTS.md](./AGENTS.md).

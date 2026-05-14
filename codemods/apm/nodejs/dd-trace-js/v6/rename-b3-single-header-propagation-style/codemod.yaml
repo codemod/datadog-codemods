@@ -6,7 +6,7 @@ description: 'Rename b3 single header propagation style values to b3 in JS/TS so
 author: 'Datadog SDK Team'
 license: 'MIT'
 workflow: 'workflow.yaml'
-repository: 'https://github.com/codemod/datadog-codemods/tree/main/codemods/rename-b3-single-header-propagation-style'
+repository: 'https://github.com/codemod/datadog-codemods'
 
 targets:
   languages: ['javascript', 'jsx', 'typescript', 'tsx']

@@ -6,7 +6,7 @@ description: 'Flatten dd-trace ingestion.sampleRate/rateLimit options to top-lev
 author: 'Datadog SDK Team'
 license: 'MIT'
 workflow: 'workflow.yaml'
-repository: 'https://github.com/codemod/datadog-codemods/tree/main/codemods/flatten-ingestion-options'
+repository: 'https://github.com/codemod/datadog-codemods'
 
 targets:
   languages: ['javascript', 'jsx', 'typescript', 'tsx']
