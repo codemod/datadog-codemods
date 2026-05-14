@@ -109,5 +109,5 @@
       }
     }
   ],
-  "ignorePatterns": ["**/node_modules", "**/dist", "**/tests", "**/tests-*", "samples/**"]
+  "ignorePatterns": ["**/node_modules", "**/dist", "**/tests", "**/tests-*"]
 }

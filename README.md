@@ -75,11 +75,14 @@ pnpm --filter <package-name> test
 pnpm --filter <package-name> check-types
 ```
 
-Run a JSSG transform directly while developing (paths depend on the package):
+Run a JSSG transform directly while developing (paths depend on the package). A
+dd-trace v5 sample app lives in the standalone repo
+[`codemod/demo-app-dd-trace-js`](https://github.com/codemod/demo-app-dd-trace-js);
+clone it next to this repo so the relative `--target` path resolves:
 
 ```bash
 pnpm dlx codemod@latest jssg run --language tsx --allow-dirty \
-  --target samples/dd-trace-v5-app/src/tracing.ts \
+  --target ../demo-app-dd-trace-js/dd-trace-v5-app/src/tracing.ts \
   codemods/apm/nodejs/dd-trace-js/v6/add-link-object-argument/scripts/codemod.ts
 ```
 
