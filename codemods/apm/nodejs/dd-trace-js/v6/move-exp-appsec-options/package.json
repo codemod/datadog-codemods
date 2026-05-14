@@ -1,6 +1,6 @@
 {
   "name": "@codemod/dd-trace-js-v6-move-exp-appsec-options",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Move experimental.appsec options to top-level appsec/apmTracingEnabled when safe",
   "type": "module",
   "scripts": {
