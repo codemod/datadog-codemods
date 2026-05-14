@@ -1,5 +1,5 @@
 {
-  "move-experimental-appsec-options": [
+  "move-exp-iast-options": [
     {
       "cardinality": {
         "file": "tests/negative-unrelated-init-same-file/input.tsx",

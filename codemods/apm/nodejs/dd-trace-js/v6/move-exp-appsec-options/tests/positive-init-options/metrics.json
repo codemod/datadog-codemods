@@ -1,5 +1,5 @@
 {
-  "move-experimental-iast-options": [
+  "move-exp-appsec-options": [
     {
       "cardinality": {
         "file": "tests/positive-init-options/input.tsx",

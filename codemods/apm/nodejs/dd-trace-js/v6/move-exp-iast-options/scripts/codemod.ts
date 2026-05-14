@@ -17,8 +17,8 @@ function stripQuotes(text: string): string {
   return text
 }
 
-function keyName(pair: SgNode<TSX> | null): string | null {
-  const key = pair?.field('key')
+function keyName(pair: SgNode<TSX>): string | null {
+  const key = pair.field('key')
   return key ? stripQuotes(key.text()) : null
 }
 
@@ -213,6 +213,10 @@ function removalRangeWithComma(start: number, end: number, source: string): { st
   return { start: removalStart, end: removalEnd }
 }
 
+function hasNestedKey(objectNode: SgNode<TSX>, name: string): boolean {
+  return objectNode.findAll({ rule: { kind: 'pair' } }).some((pair) => keyName(pair) === name)
+}
+
 function reindentText(text: string, fromIndent: string, toIndent: string, includeFirstIndent: boolean): string {
   return text
     .split('\n')
@@ -229,18 +233,19 @@ function reindentText(text: string, fromIndent: string, toIndent: string, includ
     .join('\n')
 }
 
-function leadingCommentsText(pair: SgNode<TSX>, source: string, toIndent: string): string {
+function pairTextWithLeadingComments(
+  pair: SgNode<TSX>,
+  source: string,
+  toIndent: string,
+  includeFirstIndent: boolean,
+): string {
   const start = leadingCommentStart(pair, source)
-  if (start === pair.range().start.index) {
-    return ''
-  }
-  const fromIndent = lineIndentFromStart(source, start)
-  return reindentText(source.slice(start, pair.range().start.index), fromIndent, toIndent, false)
-}
-
-function additionWithLeadingComments(pair: SgNode<TSX>, source: string, toIndent: string, text: string): string {
-  const comments = leadingCommentsText(pair, source, toIndent)
-  return comments ? `${comments}${text}` : text
+  const fromIndent =
+    start === pair.range().start.index
+      ? lineIndent(source, pair.range().start.index)
+      : lineIndentFromStart(source, start)
+  const text = source.slice(start, pair.range().end.index)
+  return reindentText(text, fromIndent, toIndent, includeFirstIndent)
 }
 
 function objectTextWithoutPair(objectNode: SgNode<TSX>, pair: SgNode<TSX>, source: string): string {
@@ -251,56 +256,22 @@ function objectTextWithoutPair(objectNode: SgNode<TSX>, pair: SgNode<TSX>, sourc
   return before.endsWith('\n') && after.startsWith('\n') ? before + after.slice(1) : before + after
 }
 
-function reindentObjectText(objectNode: SgNode<TSX>, objectText: string, source: string, toIndent: string): string {
-  const parentPair = valueObjectPair(objectNode)
-  const fromIndent = parentPair ? lineIndent(source, parentPair.range().start.index) : toIndent
-  return reindentText(objectText, fromIndent, toIndent, false)
-}
-
-function hasImmediateKey(objectNode: SgNode<TSX>, name: string): boolean {
-  return objectPairs(objectNode).some((pair) => keyName(pair) === name)
-}
-
-function hasRaspBodyCollection(appsecObject: SgNode<TSX>): boolean {
-  const raspPair = objectPairs(appsecObject).find((pair) => keyName(pair) === 'rasp')
-  const raspObject = raspPair?.field('value')
-  return Boolean(raspObject?.kind() === 'object' && hasImmediateKey(raspObject, 'bodyCollection'))
-}
-
-function standaloneEnabledValue(standalonePair: SgNode<TSX> | undefined): SgNode<TSX> | 'invalid' | null {
-  if (!standalonePair) {
-    return null
-  }
-
-  const standaloneObject = standalonePair.field('value')
-  if (standaloneObject?.kind() !== 'object') {
-    return 'invalid'
-  }
-
-  const pairs = objectPairs(standaloneObject)
-  if (pairs.length !== 1 || keyName(pairs[0] ?? null) !== 'enabled') {
-    return 'invalid'
-  }
-
-  return pairs[0]?.field('value') ?? 'invalid'
-}
-
 const transform: Transform<TSX> = async (root) => {
   const rootNode = root.root()
   const ddTraceBindings = findDdTraceBindings(rootNode)
 
   const source = rootNode.text()
   const edits: Edit[] = []
-  const metric = useMetricAtom('move-experimental-appsec-options')
+  const metric = useMetricAtom('move-exp-iast-options')
 
-  for (const appsecPair of rootNode.findAll({ rule: { kind: 'pair' } })) {
-    if (keyName(appsecPair) !== 'appsec') {
+  for (const iastPair of rootNode.findAll({ rule: { kind: 'pair' } })) {
+    if (keyName(iastPair) !== 'iast') {
       continue
     }
 
-    const experimentalObject = appsecPair.parent()
+    const experimentalObject = iastPair.parent()
     const experimentalPair = experimentalObject ? valueObjectPair(experimentalObject) : null
-    if (experimentalObject?.kind() !== 'object' || keyName(experimentalPair) !== 'experimental') {
+    if (experimentalObject?.kind() !== 'object' || keyName(experimentalPair ?? iastPair) !== 'experimental') {
       continue
     }
 
@@ -314,73 +285,32 @@ const transform: Transform<TSX> = async (root) => {
       continue
     }
 
-    const appsecObject = appsecPair.field('value')
-    if (appsecObject?.kind() !== 'object') {
+    if (objectPairs(optionsObject).some((pair) => keyName(pair) === 'iast')) {
+      metric.increment({ file: metricFile(root.filename()), result: 'skipped-conflict' })
+      continue
+    }
+
+    const iastObject = iastPair.field('value')
+    if (iastObject?.kind() !== 'object') {
       metric.increment({ file: metricFile(root.filename()), result: 'skipped-non-object' })
       continue
     }
 
-    if (hasImmediateKey(appsecObject, 'extendedHeadersCollection') || hasRaspBodyCollection(appsecObject)) {
-      metric.increment({ file: metricFile(root.filename()), result: 'skipped-remote-config' })
-      continue
-    }
-
-    const appsecPairs = objectPairs(appsecObject)
-    const standalonePair = appsecPairs.find((pair) => keyName(pair) === 'standalone')
-    const standaloneValue = standaloneEnabledValue(standalonePair)
-    if (standaloneValue === 'invalid') {
-      metric.increment({ file: metricFile(root.filename()), result: 'skipped-standalone-shape' })
-      continue
-    }
-
-    const remainingAppsecPairs = appsecPairs.filter((pair) => keyName(pair) !== 'standalone')
-    const topLevelNames = new Set(
-      objectPairs(optionsObject)
-        .map((pair) => keyName(pair))
-        .filter((name): name is string => Boolean(name)),
-    )
-    if (remainingAppsecPairs.length > 0 && topLevelNames.has('appsec')) {
-      metric.increment({ file: metricFile(root.filename()), result: 'skipped-appsec-conflict' })
-      continue
-    }
-    if (standaloneValue && topLevelNames.has('apmTracingEnabled')) {
-      metric.increment({ file: metricFile(root.filename()), result: 'skipped-apm-conflict' })
-      continue
-    }
-
-    const indent = lineIndent(source, experimentalPair.range().start.index)
-    const additions: string[] = []
-    if (remainingAppsecPairs.length > 0) {
-      const appsecText = reindentObjectText(
-        appsecObject,
-        standalonePair ? objectTextWithoutPair(appsecObject, standalonePair, source) : appsecObject.text(),
-        source,
-        indent,
-      )
-      additions.push(additionWithLeadingComments(appsecPair, source, indent, `appsec: ${appsecText}`))
-    }
-    if (standaloneValue) {
-      additions.push(
-        standalonePair
-          ? additionWithLeadingComments(standalonePair, source, indent, `apmTracingEnabled: ${standaloneValue.text()}`)
-          : `apmTracingEnabled: ${standaloneValue.text()}`,
-      )
-    }
-    if (additions.length === 0) {
-      metric.increment({ file: metricFile(root.filename()), result: 'skipped-empty' })
+    if (hasNestedKey(iastObject, 'securityControlsConfiguration')) {
+      metric.increment({ file: metricFile(root.filename()), result: 'skipped-security-controls' })
       continue
     }
 
     const experimentalPairs = objectPairs(experimentalObject)
-    if (experimentalPairs.length === 1) {
-      edits.push(experimentalPair.replace(additions.join(`,\n${indent}`)))
-    } else {
-      const experimentalText = objectTextWithoutPair(experimentalObject, appsecPair, source)
-      edits.push(
-        experimentalPair.replace(`experimental: ${experimentalText},\n${indent}${additions.join(`,\n${indent}`)}`),
-      )
-    }
+    const indent = lineIndent(source, experimentalPair.range().start.index)
 
+    if (experimentalPairs.length === 1) {
+      edits.push(experimentalPair.replace(pairTextWithLeadingComments(iastPair, source, indent, false)))
+    } else {
+      const experimentalText = objectTextWithoutPair(experimentalObject, iastPair, source)
+      const iastText = pairTextWithLeadingComments(iastPair, source, indent, true)
+      edits.push(experimentalPair.replace(`experimental: ${experimentalText},\n${iastText}`))
+    }
     metric.increment({ file: metricFile(root.filename()), result: 'moved' })
   }
 

@@ -1,5 +1,5 @@
 {
-  "move-experimental-iast-options": [
+  "move-exp-iast-options": [
     {
       "cardinality": {
         "file": "tests/negative-security-controls-no-change/input.tsx",

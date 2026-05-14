@@ -1,5 +1,5 @@
 {
-  "move-experimental-appsec-options": [
+  "move-exp-appsec-options": [
     {
       "cardinality": {
         "file": "tests/negative-no-dd-trace/input.tsx",

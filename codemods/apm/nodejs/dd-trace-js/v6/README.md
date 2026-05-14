@@ -62,7 +62,7 @@ npx codemod @codemod/dd-trace-js-v6-move-exp-iast-options --target <path>
 ```
 
 See
-[@codemod/dd-trace-js-v6-move-exp-iast-options](https://app.codemod.com/registry/@codemod/dd-trace-js-v6-move-exp-iast-options). · [source](./move-experimental-iast-options/)
+[@codemod/dd-trace-js-v6-move-exp-iast-options](https://app.codemod.com/registry/@codemod/dd-trace-js-v6-move-exp-iast-options). · [source](./move-exp-iast-options/)
 
 Optional report-only AI review for skipped security controls:
 
@@ -83,7 +83,7 @@ npx codemod @codemod/dd-trace-js-v6-move-exp-appsec-options --target <path>
 ```
 
 See
-[@codemod/dd-trace-js-v6-move-exp-appsec-options](https://app.codemod.com/registry/@codemod/dd-trace-js-v6-move-exp-appsec-options). · [source](./move-experimental-appsec-options/)
+[@codemod/dd-trace-js-v6-move-exp-appsec-options](https://app.codemod.com/registry/@codemod/dd-trace-js-v6-move-exp-appsec-options). · [source](./move-exp-appsec-options/)
 
 Optional report-only AI review for skipped AppSec Remote Configuration options:
 

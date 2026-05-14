@@ -1,5 +1,5 @@
 {
-  "move-experimental-iast-options": [
+  "move-exp-iast-options": [
     {
       "cardinality": {
         "file": "tests/negative-shadowed-tracer-no-change/input.tsx",
