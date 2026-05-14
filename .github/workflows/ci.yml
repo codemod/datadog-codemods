@@ -142,7 +142,9 @@ jobs:
               d=$parent
             done
           done
-          changed_dirs=$(printf '%s\n' "$changed_dirs" | sort -u | grep -v '^$')
+          # grep exits 1 when it filters down to zero lines; with `bash -e` that would
+          # abort before we can treat "no codemod dirs" as success (changeset-only PRs).
+          changed_dirs=$(printf '%s\n' "$changed_dirs" | sort -u | grep -v '^$' || true)
 
           if [ -z "$changed_dirs" ]; then
             echo "No codemod source files changed. Changeset not required."
@@ -171,7 +173,11 @@ jobs:
             exit 0
           fi
 
-          changeset_files=$(git diff --name-only --diff-filter=ACMR origin/main...HEAD -- '.changeset/*.md' \
+          # Resolve the whole `.changeset/` tree; a quoted `*.md` pathspec is treated
+          # literally on many Linux/Git combinations and matches nothing, producing
+          # false "missing changeset" failures when codemods/ did change.
+          changeset_files=$(git diff --name-only --diff-filter=ACMR origin/main...HEAD -- .changeset \
+            | grep '\.md$' \
             | grep -v 'README.md' \
             || true)
 
@@ -184,7 +190,8 @@ jobs:
 
           missing=""
           for pkg in $changed_packages; do
-            if ! echo "$covered_packages" | grep -qw "$pkg"; then
+            # Exact line match: `grep -w` is unreliable for hyphenated npm-style names on GNU grep.
+            if ! printf '%s\n' $covered_packages | grep -Fxq "$pkg"; then
               missing="$missing $pkg"
             fi
           done

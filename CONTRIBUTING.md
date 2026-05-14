@@ -122,7 +122,3 @@ Each codemod package should include:
 - `tests/<case>/metrics.json` when the transform records metrics
 
 Keep transformations atomic and verifiable with fixtures.
-
-## Issue backlog
-
-Draft issues live under [`issues/`](./issues/README.md).
