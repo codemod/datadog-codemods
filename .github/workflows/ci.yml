@@ -171,7 +171,11 @@ jobs:
             exit 0
           fi
 
-          changeset_files=$(git diff --name-only --diff-filter=ACMR origin/main...HEAD -- '.changeset/*.md' \
+          # Resolve the whole `.changeset/` tree; a quoted `*.md` pathspec is treated
+          # literally on many Linux/Git combinations and matches nothing, producing
+          # false "missing changeset" failures when codemods/ did change.
+          changeset_files=$(git diff --name-only --diff-filter=ACMR origin/main...HEAD -- .changeset \
+            | grep '\.md$' \
             | grep -v 'README.md' \
             || true)
 
