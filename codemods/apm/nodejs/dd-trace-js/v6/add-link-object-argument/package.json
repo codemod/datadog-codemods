@@ -1,0 +1,19 @@
+{
+  "name": "dd-trace-5-to-6-add-link-object-argument",
+  "version": "0.1.1",
+  "description": "Rewrite Span.addLink(context, attributes) to Span.addLink({ context, attributes })",
+  "type": "module",
+  "scripts": {
+    "test": "pnpm dlx codemod@latest jssg test -l tsx --semantic-workspace ./scripts/codemod.ts",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@jssg/utils": "^0.0.2"
+  },
+  "devDependencies": {
+    "@codemod.com/jssg-types": "latest",
+    "@types/node": "latest",
+    "typescript": "latest"
+  },
+  "packageManager": "pnpm@9.14.2"
+}

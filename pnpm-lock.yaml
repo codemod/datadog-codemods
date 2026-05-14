@@ -16,7 +16,7 @@ importers:
         specifier: latest
         version: 25.7.0
 
-  codemods/add-link-object-argument:
+  codemods/apm/nodejs/dd-trace-js/v6/add-link-object-argument:
     dependencies:
       '@jssg/utils':
         specifier: ^0.0.2
@@ -32,9 +32,9 @@ importers:
         specifier: latest
         version: 6.0.3
 
-  codemods/dd-trace-5-to-6-migration-recipe: {}
+  codemods/apm/nodejs/dd-trace-js/v6/dd-trace-5-to-6-migration-recipe: {}
 
-  codemods/flatten-ingestion-options:
+  codemods/apm/nodejs/dd-trace-js/v6/flatten-ingestion-options:
     dependencies:
       '@jssg/utils':
         specifier: ^0.0.2
@@ -50,7 +50,7 @@ importers:
         specifier: latest
         version: 6.0.3
 
-  codemods/move-experimental-appsec-options:
+  codemods/apm/nodejs/dd-trace-js/v6/move-experimental-appsec-options:
     dependencies:
       '@jssg/utils':
         specifier: ^0.0.2
@@ -66,7 +66,7 @@ importers:
         specifier: latest
         version: 6.0.3
 
-  codemods/move-experimental-iast-options:
+  codemods/apm/nodejs/dd-trace-js/v6/move-experimental-iast-options:
     dependencies:
       '@jssg/utils':
         specifier: ^0.0.2
@@ -82,7 +82,7 @@ importers:
         specifier: latest
         version: 6.0.3
 
-  codemods/rename-b3-single-header-propagation-style:
+  codemods/apm/nodejs/dd-trace-js/v6/rename-b3-single-header-propagation-style:
     dependencies:
       '@jssg/utils':
         specifier: ^0.0.2
@@ -98,7 +98,7 @@ importers:
         specifier: latest
         version: 6.0.3
 
-  codemods/rename-plugin-list-options:
+  codemods/apm/nodejs/dd-trace-js/v6/rename-plugin-list-options:
     dependencies:
       '@jssg/utils':
         specifier: ^0.0.2
@@ -114,7 +114,7 @@ importers:
         specifier: latest
         version: 6.0.3
 
-  codemods/rename-profiling-env-vars:
+  codemods/apm/nodejs/dd-trace-js/v6/rename-profiling-env-vars:
     dependencies:
       '@jssg/utils':
         specifier: ^0.0.2
@@ -130,7 +130,7 @@ importers:
         specifier: latest
         version: 6.0.3
 
-  codemods/rename-runtime-id-env-var:
+  codemods/apm/nodejs/dd-trace-js/v6/rename-runtime-id-env-var:
     dependencies:
       '@jssg/utils':
         specifier: ^0.0.2
