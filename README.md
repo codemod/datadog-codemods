@@ -60,6 +60,8 @@ transforms over ast-grep ASTs. See the JSSG docs for the full API surface.
 
 ```bash
 pnpm install
+pnpm run format
+pnpm run lint
 pnpm run test
 pnpm run check-types
 pnpm run ci
@@ -89,4 +91,4 @@ codemods, deferred codemods, and manual migration checks.
 
 ## Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md).
+See [CONTRIBUTING.md](./CONTRIBUTING.md). If you are using an AI coding agent, start with [AGENTS.md](./AGENTS.md).
