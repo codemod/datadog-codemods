@@ -1,6 +1,6 @@
 {
   "name": "dd-trace-5-to-6-rename-runtime-id-env-var",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Rename DD_TRACE_EXPERIMENTAL_RUNTIME_ID_ENABLED in JS/TS source",
   "type": "module",
   "scripts": {

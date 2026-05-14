@@ -1,6 +1,6 @@
 {
   "name": "dd-trace-5-to-6-flatten-ingestion-options",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Flatten dd-trace ingestion.sampleRate/rateLimit options to top-level TracerOptions",
   "type": "module",
   "scripts": {

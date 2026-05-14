@@ -1,7 +1,7 @@
 schema_version: '1.0'
 
 name: 'dd-trace-5-to-6-rename-profiling-env-vars'
-version: '0.1.2'
+version: '0.1.3'
 description: 'Rename Datadog profiling experimental env vars in JS/TS source'
 author: 'Datadog SDK Team'
 license: 'MIT'
