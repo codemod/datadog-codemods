@@ -8,12 +8,11 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@jssg/utils": "^0.0.7"
+    "@jssg/utils": "catalog:"
   },
   "devDependencies": {
-    "@codemod.com/jssg-types": "latest",
-    "@types/node": "latest",
-    "typescript": "latest"
-  },
-  "packageManager": "pnpm@9.14.2"
+    "@codemod.com/jssg-types": "catalog:",
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
+  }
 }

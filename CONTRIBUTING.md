@@ -44,20 +44,23 @@ pnpm --filter <package-name> test
 pnpm --filter <package-name> check-types
 ```
 
-Use Node **20** locally (see [`.nvmrc`](./.nvmrc)) to match CI.
+Use Node **22** locally (see [`.nvmrc`](./.nvmrc)) to match CI.
 
 ## Pre-commit hook
 
-After `pnpm install`, Husky runs **lint-staged** before each commit: oxfmt and oxlint on staged files, plus targeted `pnpm test` when you touch `codemods/**/scripts/*.ts`. If something fails, fix or stage the updates and try again.
+After `pnpm install`, Husky runs **lint-staged** before each commit: oxfmt and oxlint on staged files, plus targeted `pnpm test` when you touch `codemods/**/scripts/**/*.ts`. If something fails, fix or stage the updates and try again.
 
 The hook only inspects **staged** files. Files you did not touch can still fail a full-repo `pnpm run format:check` / `pnpm run lint` — CI focuses on **changed** paths for pull requests.
 
 ## CI
 
-- **Pull requests to `main`:** `.github/workflows/ci.yml` installs with `pnpm install --frozen-lockfile`, runs **oxfmt** / **oxlint** on changed files, **`pnpm run docs:links`** on tracked Markdown, runs **test** and **check-types** only for codemod packages touched by the diff, and enforces **changesets** (see below).
-- **Pushes to `main`:** the same workflow runs **`pnpm run docs:links`** and full-workspace `pnpm run ci` (all `@codemod/dd-trace-js-v6-*` tests and typechecks).
+Three workflows run on every PR and push to `main`:
 
-Match that locally before you push.
+- **`ci.yml` — Pull request checks:** oxfmt / oxlint and docs-link checks on changed files; `pnpm test` and `pnpm run check-types` only for codemod packages touched by the diff.
+- **`ci.yml` — Full workspace (main):** on every push to `main`, runs full `pnpm run ci` (all tests + typechecks) and `pnpm run docs:links`.
+- **`ci.yml` — Changeset check:** enforces that every PR touching `codemods/` includes a changeset for each changed package (or has the `skip-changeset` label).
+
+Match the local checks (`pnpm run ci`) before you push.
 
 ## Making changes
 
@@ -87,10 +90,20 @@ Commit the new markdown file under `.changeset/` with your PR.
 
 ## Release workflow
 
-1. Merge a PR that includes one or more changesets into `main`.
-2. [`.github/workflows/release.yml`](./.github/workflows/release.yml) consumes changesets, commits **Version Packages** to `main`, syncs `codemod.yaml` versions, creates **`name@vversion`** git tags for newly versioned packages, and publishes those packages with [`codemod/publish-action`](https://github.com/codemod/publish-action).
+Releases are fully automated via `.github/workflows/release.yml` on every push to `main`:
 
-Do not hand-edit the `version` field in package `package.json` or `codemod.yaml` to “simulate” a release — automation owns bumps. The **Publish Codemod (Manual)** workflow ([`.github/workflows/publish.yml`](./.github/workflows/publish.yml)) is for emergencies: supply the path **under** `codemods/`, e.g. `apm/nodejs/dd-trace-js/v6/add-link-object-argument` or `apm/nodejs/dd-trace-js/v6/dd-trace-js-v6-migration-recipe`.
+1. Merge a PR that includes one or more changesets into `main`.
+2. The `release` job detects the pending changesets, runs `pnpm run version-packages` which:
+   - bumps `version` in each affected `package.json` via `changeset version`
+   - syncs the new version into the matching `codemod.yaml` via `scripts/sync-codemod-versions.sh`
+3. The bot opens (or updates) a **Version Packages** pull request on branch `changeset-release/version-packages` — it does not push directly to `main`.
+4. Merge that PR (required checks apply like any other PR).
+5. On the next push to `main`, `scripts/tag-and-publish.sh` creates a `<name>@v<version>` git tag for every bumped package and pushes the tags.
+6. The `publish` job fans out a parallel matrix over the changed directories and publishes each codemod via [`codemod/publish-action`](https://github.com/codemod/publish-action).
+
+For emergencies (re-publish a specific codemod without a full release cycle), use the **Publish Codemod (Manual)** workflow (`.github/workflows/publish.yml`) and supply the tag, e.g. `@codemod/dd-trace-js-v6-add-link-object-argument@v0.3.0`.
+
+Do not hand-edit `version` in `package.json` or `codemod.yaml` to simulate a release — automation owns bumps.
 
 ## Adding a new codemod
 
@@ -128,3 +141,33 @@ Each codemod package should include:
 - `tests/<case>/metrics.json` when the transform records metrics
 
 Keep transformations atomic and verifiable with fixtures.
+
+## Checks
+
+| Command                 | What it does                   |
+| ----------------------- | ------------------------------ |
+| `pnpm run format`       | Auto-format with oxfmt         |
+| `pnpm run format:check` | Check formatting (no writes)   |
+| `pnpm run lint`         | Lint with oxlint (type-aware)  |
+| `pnpm run lint:fix`     | Lint and auto-fix with oxlint  |
+| `pnpm run test`         | Run all codemod tests          |
+| `pnpm run check-types`  | Typecheck all codemod packages |
+| `pnpm run ci`           | Full check (test + typecheck)  |
+
+## Pull requests
+
+- Describe the codemod and its migration use case.
+- Follow [Conventional Commits](https://www.conventionalcommits.org/):
+
+| Type       | Usage                                 |
+| ---------- | ------------------------------------- |
+| `feat`     | New codemod or capability             |
+| `fix`      | Bugfix in a transform or test         |
+| `docs`     | Documentation-only changes            |
+| `refactor` | Non-feature, non-bugfix code changes  |
+| `test`     | Add or update fixtures/tests          |
+| `chore`    | Tooling, CI, formatting, repo hygiene |
+
+## License
+
+By contributing, you agree that your work will be licensed under the MIT License.

@@ -1,11 +1,9 @@
 # Changesets
 
-This folder is used by [Changesets](https://github.com/changesets/changesets) to manage versioning and changelogs for the codemods in this repository.
+This directory contains changesets — short Markdown files that describe changes to packages in this repo.
 
-To add a changeset, run:
+When you run `pnpm changeset`, a new file is created here. Commit it with your PR.
 
-```
-pnpm changeset
-```
+When a PR is merged to `main`, the `release.yml` workflow consumes these files, bumps the relevant `package.json` and `codemod.yaml` versions, and opens a **Version Packages** PR. After that PR is merged, the workflow creates git tags and publishes the affected codemods.
 
-Then follow the prompts to select which codemod(s) changed and the type of version bump.
+See [Changesets docs](https://github.com/changesets/changesets) for more detail.

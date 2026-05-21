@@ -13,31 +13,31 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "test": "pnpm -r --filter \"@codemod/dd-trace-js-v6-*\" test",
-    "check-types": "pnpm -r --filter \"@codemod/dd-trace-js-v6-*\" check-types",
-    "ci": "pnpm run test && pnpm run check-types",
     "format": "oxfmt .",
     "format:check": "oxfmt --check .",
     "lint": "oxlint --type-aware --type-check --deny-warnings .",
     "lint:fix": "oxlint --type-aware --type-check --fix .",
-    "prepare": "husky",
+    "test": "pnpm --filter \"./codemods/**\" test",
+    "check-types": "pnpm --filter \"./codemods/**\" run check-types",
+    "ci": "pnpm run test && pnpm run check-types",
+    "docs:links": "git ls-files '*.md' | xargs pnpm exec markdown-link-check -q -c .markdown-link-check.json",
     "changeset": "changeset",
     "version-packages": "changeset version && bash scripts/sync-codemod-versions.sh",
-    "docs:links": "git ls-files '*.md' | xargs pnpm exec markdown-link-check -q -c .markdown-link-check.json"
-  },
-  "dependencies": {
-    "@jssg/utils": "^0.0.7"
+    "prepare": "husky"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.31.0",
-    "@types/node": "latest",
+    "@changesets/cli": "^2.27.12",
+    "codemod": "^1.11.0",
     "husky": "^9.1.7",
     "lint-staged": "^17.0.4",
-    "markdown-link-check": "^3.14.2",
+    "markdown-link-check": "^3.13.6",
     "oxfmt": "^0.49.0",
-    "oxlint": "^1.64.0",
+    "oxlint": "^1.66.0",
     "oxlint-tsgolint": "^0.22.1",
-    "typescript": "6.0.3"
+    "typescript": "^5.8.3"
   },
-  "packageManager": "pnpm@9.14.2"
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.19.0"
 }
