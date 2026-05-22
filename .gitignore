@@ -1,8 +1,17 @@
+# Dependencies
 node_modules/
+tmp/
+
+# Build outputs
 .turbo/
 dist/
 build/
 coverage/
+
+# System files
 .DS_Store
+**/.DS_Store
+
+# Agent tooling
 .agents/
 .codex/
